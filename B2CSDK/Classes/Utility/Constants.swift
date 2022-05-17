@@ -21,6 +21,9 @@ struct TableCellID {
     static let CategoryCellID = "CategoryTableViewCell"
     static let BrandCellID = "BrandTableViewCell"
     static let UpcomingShowCellID = "UpcomingShowsTableViewCell"
+    
+    static let ReceiverCell = "ReceiverTableViewCell"
+    static let SenderCell = "SenderTableViewCell"
 }
 
 struct CollectionCellID {
@@ -29,4 +32,5 @@ struct CollectionCellID {
     static let CategoryCellID = "CategoryCollectionViewCell"
     static let BrandCellID = "BrandCollectionViewCell"
     static let UpcomingShowCellID = "UpcomingShowCollectionViewCell"
+    static let CTACellID = "CTACollectionViewCell"
 }

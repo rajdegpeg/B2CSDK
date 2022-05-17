@@ -16,3 +16,19 @@ extension UIView {
         self.layer.masksToBounds = true
     }
 }
+
+extension UIColor {
+    
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) {
+        self.init(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+    }
+    
+    open class var primaryColor: UIColor {
+        return UIColor.init(r: 214.0, g: 21.0, b: 79.0)
+    }
+    
+    open class var receiverProfileBorder: UIColor {
+        return UIColor.init(r: 196, g: 196, b: 196)
+    }
+    
+}
