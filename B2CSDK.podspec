@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'B2CSDK'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of B2CSDK.'
+  s.summary          = 'Degpeg B2CSDK for clients'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
