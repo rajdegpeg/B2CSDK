@@ -327,12 +327,12 @@
                     <navigationItem key="navigationItem" id="P5M-Br-0g0"/>
                     <connections>
                         <outlet property="collectionView" destination="4G5-OD-nC7" id="YwF-yd-0Is"/>
-                        <outlet property="commentTableView" destination="dqx-La-cGQ" id="azK-Ov-Sk5"/>
-                        <outlet property="commentTextField" destination="C5I-oa-Ll3" id="YJA-qD-iMa"/>
+                        <outlet property="commentTextField" destination="C5I-oa-Ll3" id="nIf-VN-2cO"/>
                         <outlet property="commentView" destination="hwB-hI-jW2" id="YYi-P3-WuB"/>
                         <outlet property="countView" destination="X2f-pS-nH7" id="Mrk-OY-5RI"/>
                         <outlet property="labelStatus" destination="riC-IP-cM1" id="cew-ek-sD9"/>
                         <outlet property="labelViewCount" destination="1Xc-jE-lHr" id="xby-oY-GUo"/>
+                        <outlet property="messageTableView" destination="dqx-La-cGQ" id="zfr-Hx-HMO"/>
                         <outlet property="name" destination="aG4-zD-vQz" id="m1s-GP-5if"/>
                         <outlet property="profileImage" destination="Tbd-ho-DA0" id="x0j-2o-w9b"/>
                         <outlet property="statusView" destination="FIi-JY-OHf" id="Sw1-Di-DdF"/>

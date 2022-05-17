@@ -45,4 +45,7 @@ TODO: Add long description of the pod here.
   s.dependency 'MBProgressHUD', '~> 1.2'
   s.dependency 'Kingfisher', '~> 7.0'
   s.dependency 'ObjectMapper', '~> 4.2'
+  s.dependency 'GrowingTextView', '0.7.2'
+  s.dependency 'IQKeyboardManagerSwift'
+  
 end
