@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="K61-YC-6OT" customClass="UpcomingShowsTableViewCell" customModule="B2CSDK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K61-YC-6OT" id="uoP-jS-ZAh">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="236"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RW2-WT-zix">
+                        <rect key="frame" x="20" y="10" width="128.5" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="Gj2-Cj-IPh"/>
+                        </constraints>
+                        <attributedString key="attributedText">
+                            <fragment content="Upcoming">
+                                <attributes>
+                                    <color key="NSColor" red="0.83921568629999999" green="0.08235294118" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <font key="NSFont" metaFont="system" size="16"/>
+                                    <real key="NSKern" value="0.0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
+                                        <tabStops/>
+                                    </paragraphStyle>
+                                    <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <real key="NSStrokeWidth" value="0.0"/>
+                                </attributes>
+                            </fragment>
+                            <fragment content=" ">
+                                <attributes>
+                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <font key="NSFont" metaFont="system" size="24"/>
+                                    <real key="NSKern" value="0.0"/>
+                                    <font key="NSOriginalFont" metaFont="system" size="16"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
+                                        <tabStops/>
+                                    </paragraphStyle>
+                                    <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <real key="NSStrokeWidth" value="0.0"/>
+                                </attributes>
+                            </fragment>
+                            <fragment content="Shows">
+                                <attributes>
+                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <font key="NSFont" metaFont="system" size="16"/>
+                                    <real key="NSKern" value="0.0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
+                                        <tabStops/>
+                                    </paragraphStyle>
+                                    <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <real key="NSStrokeWidth" value="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aK5-gx-fig">
+                        <rect key="frame" x="374" y="8" width="30" height="30"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Aiy-EI-vUk"/>
+                            <constraint firstAttribute="width" constant="30" id="Z5H-Ej-nP3"/>
+                        </constraints>
+                        <state key="normal" image="arrow.png"/>
+                    </button>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hPV-0N-tlt">
+                        <rect key="frame" x="0.0" y="46" width="414" height="180"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="180" id="whI-EQ-bhR"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cYO-Kq-MgQ">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="K61-YC-6OT" id="Elu-lM-iGN"/>
+                            <outlet property="delegate" destination="K61-YC-6OT" id="fpb-gT-sTy"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hPV-0N-tlt" secondAttribute="trailing" id="6ZX-nP-Kfc"/>
+                    <constraint firstAttribute="trailing" secondItem="aK5-gx-fig" secondAttribute="trailing" constant="10" id="8OK-q2-5c4"/>
+                    <constraint firstItem="aK5-gx-fig" firstAttribute="top" secondItem="uoP-jS-ZAh" secondAttribute="top" constant="8" id="Fsw-gr-jAo"/>
+                    <constraint firstItem="RW2-WT-zix" firstAttribute="top" secondItem="uoP-jS-ZAh" secondAttribute="top" constant="10" id="RgB-Tm-spp"/>
+                    <constraint firstItem="RW2-WT-zix" firstAttribute="leading" secondItem="uoP-jS-ZAh" secondAttribute="leading" constant="20" id="Wmu-9g-HfB"/>
+                    <constraint firstItem="hPV-0N-tlt" firstAttribute="leading" secondItem="uoP-jS-ZAh" secondAttribute="leading" id="Xp6-1f-Y2k"/>
+                    <constraint firstAttribute="bottom" secondItem="hPV-0N-tlt" secondAttribute="bottom" constant="10" id="nl9-69-HD5"/>
+                    <constraint firstItem="hPV-0N-tlt" firstAttribute="top" secondItem="RW2-WT-zix" secondAttribute="bottom" constant="14" id="zCm-Q8-ELF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Mdr-M3-Hhq"/>
+            <connections>
+                <outlet property="collectionView" destination="hPV-0N-tlt" id="Fyz-Bk-B0a"/>
+                <outlet property="upcomingShowButton" destination="aK5-gx-fig" id="jqV-YF-6cP"/>
+            </connections>
+            <point key="canvasLocation" x="32" y="66"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow.png" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,60 @@
+//
+//  UpcomingShowsTableViewCell.swift
+//  Degpeg
+//
+//  Created by Raj Kadam on 28/04/22.
+//
+
+import UIKit
+
+class UpcomingShowsTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var upcomingShowButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    
+    func registerCell(bundle: Bundle?){
+        collectionView.register(UINib.init(nibName: CollectionCellID.UpcomingShowCellID, bundle: bundle), forCellWithReuseIdentifier: CollectionCellID.UpcomingShowCellID)
+    }
+    
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}
+
+extension UpcomingShowsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let height = 180
+        let width = 180
+        return CGSize(width: width, height: height)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellID.UpcomingShowCellID, for: indexPath) as! UpcomingShowCollectionViewCell
+        cell.configureUI()
+        if indexPath.row % 2 == 0 {
+            cell.labelShowName.text = "Tech for all"
+        }else {
+            cell.labelShowName.text = "Comedy show with"
+        }
+        return cell
+    }
+    
+    
+}
+

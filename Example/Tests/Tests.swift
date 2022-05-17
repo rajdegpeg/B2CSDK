@@ -1,5 +1,5 @@
 import XCTest
-import B2CSDK
+//import B2CSDK
 
 class Tests: XCTestCase {
     

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Regular.ttf">
+            <string>Nunito-Regular</string>
+        </array>
+        <array key="Nunito-SemiBold.ttf">
+            <string>Nunito-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TrendingVideoCollectionViewCell" id="gTV-IL-0wX" customClass="TrendingVideoCollectionViewCell" customModule="B2CSDK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummy1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-It-v8q">
+                        <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+                    </imageView>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ukm-wp-JJC">
+                        <rect key="frame" x="4" y="5" width="38" height="24"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPv-Ui-YpW">
+                                <rect key="frame" x="7.5" y="0.0" width="23" height="24"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.83921568629999999" green="0.08235294118" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SPv-Ui-YpW" firstAttribute="centerY" secondItem="Ukm-wp-JJC" secondAttribute="centerY" id="1As-XD-oOU"/>
+                            <constraint firstAttribute="height" constant="24" id="73K-Vu-8J8"/>
+                            <constraint firstAttribute="bottom" secondItem="SPv-Ui-YpW" secondAttribute="bottom" id="Ak1-Wm-ti7"/>
+                            <constraint firstAttribute="width" constant="38" id="B6d-oK-FCT"/>
+                            <constraint firstItem="SPv-Ui-YpW" firstAttribute="top" secondItem="Ukm-wp-JJC" secondAttribute="top" id="RXk-nA-vWt"/>
+                            <constraint firstItem="SPv-Ui-YpW" firstAttribute="centerX" secondItem="Ukm-wp-JJC" secondAttribute="centerX" id="dax-yI-Ayo"/>
+                        </constraints>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watched_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2mV-Sz-6El">
+                        <rect key="frame" x="42" y="5" width="18" height="24"/>
+                        <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="qx1-xH-vaf"/>
+                        </constraints>
+                    </imageView>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IU3-c0-Xlx">
+                        <rect key="frame" x="60" y="5" width="16.5" height="24"/>
+                        <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 1  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBm-yK-H6w">
+                        <rect key="frame" x="60" y="5" width="16.5" height="24"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="2mV-Sz-6El" firstAttribute="bottom" secondItem="Ukm-wp-JJC" secondAttribute="bottom" id="6lu-5J-rRo"/>
+                <constraint firstItem="Ukm-wp-JJC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="77k-E7-LHR"/>
+                <constraint firstItem="IU3-c0-Xlx" firstAttribute="leading" secondItem="WBm-yK-H6w" secondAttribute="leading" id="9iK-UK-Fmv"/>
+                <constraint firstItem="IU3-c0-Xlx" firstAttribute="top" secondItem="WBm-yK-H6w" secondAttribute="top" id="G70-Vv-9Pt"/>
+                <constraint firstItem="IU3-c0-Xlx" firstAttribute="trailing" secondItem="WBm-yK-H6w" secondAttribute="trailing" id="GJK-rv-fHd"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WBm-yK-H6w" secondAttribute="trailing" constant="20" id="GbE-CV-Ch5"/>
+                <constraint firstItem="IU3-c0-Xlx" firstAttribute="bottom" secondItem="WBm-yK-H6w" secondAttribute="bottom" id="KiB-xa-1sD"/>
+                <constraint firstItem="WBm-yK-H6w" firstAttribute="top" secondItem="2mV-Sz-6El" secondAttribute="top" id="X2Y-lb-HAj"/>
+                <constraint firstItem="WBm-yK-H6w" firstAttribute="leading" secondItem="2mV-Sz-6El" secondAttribute="trailing" id="XEZ-Aj-IzE"/>
+                <constraint firstItem="zlU-It-v8q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="aCp-ov-yJ3"/>
+                <constraint firstItem="Ukm-wp-JJC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="c7H-XX-ZJr"/>
+                <constraint firstItem="2mV-Sz-6El" firstAttribute="top" secondItem="Ukm-wp-JJC" secondAttribute="top" id="j0p-ir-lfx"/>
+                <constraint firstAttribute="trailing" secondItem="zlU-It-v8q" secondAttribute="trailing" id="pei-e5-4tP"/>
+                <constraint firstItem="2mV-Sz-6El" firstAttribute="leading" secondItem="Ukm-wp-JJC" secondAttribute="trailing" id="s3i-yH-s4K"/>
+                <constraint firstItem="WBm-yK-H6w" firstAttribute="bottom" secondItem="2mV-Sz-6El" secondAttribute="bottom" id="t7O-6c-ytl"/>
+                <constraint firstAttribute="bottom" secondItem="zlU-It-v8q" secondAttribute="bottom" id="v2p-Qq-Kf2"/>
+                <constraint firstItem="zlU-It-v8q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zmy-Gr-sle"/>
+            </constraints>
+            <connections>
+                <outlet property="countView" destination="IU3-c0-Xlx" id="aOp-3w-rDg"/>
+                <outlet property="labelStatus" destination="SPv-Ui-YpW" id="ojd-YY-XXb"/>
+                <outlet property="labelViewCount" destination="WBm-yK-H6w" id="3VM-rR-FAP"/>
+                <outlet property="statusView" destination="Ukm-wp-JJC" id="6GA-i6-ooN"/>
+                <outlet property="videoImage" destination="zlU-It-v8q" id="UYF-TC-odC"/>
+            </connections>
+            <point key="canvasLocation" x="53.623188405797109" y="91.741071428571431"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="dummy1.png" width="115" height="141"/>
+        <image name="watched_icon" width="14" height="14"/>
+    </resources>
+</document>

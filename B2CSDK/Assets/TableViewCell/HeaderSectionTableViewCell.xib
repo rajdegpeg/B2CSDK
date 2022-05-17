@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderSectionTableViewCell" id="KGk-i7-Jjw" customClass="HeaderSectionTableViewCell" customModule="B2CSDK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="420"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="420"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXj-2n-B1i">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="420"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="g64-ui-Yjh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="378"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="j60-N9-7Jp">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="TLI-lv-IZP"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="9xA-gz-8qT"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ICH-Bg-DaQ" customClass="RKSlidePageControl" customModule="B2CSDK" customModuleProvider="target">
+                                <rect key="frame" x="20" y="386" width="374" height="26"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" red="0.72549019609999998" green="0.72549019609999998" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="QuY-aa-NUc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="elementWidth">
+                                        <real key="value" value="28"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="elementHeight">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfPages">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="currentPageTintColor">
+                                        <color key="value" red="0.83921568629999999" green="0.08235294118" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ICH-Bg-DaQ" firstAttribute="leading" secondItem="jXj-2n-B1i" secondAttribute="leading" constant="20" id="5Xs-Ds-Zao"/>
+                            <constraint firstAttribute="trailing" secondItem="g64-ui-Yjh" secondAttribute="trailing" id="ASX-Cs-X1p"/>
+                            <constraint firstItem="g64-ui-Yjh" firstAttribute="top" secondItem="jXj-2n-B1i" secondAttribute="top" id="EaA-c0-xyY"/>
+                            <constraint firstAttribute="trailing" secondItem="ICH-Bg-DaQ" secondAttribute="trailing" constant="20" id="IPP-eg-yCu"/>
+                            <constraint firstAttribute="bottom" secondItem="ICH-Bg-DaQ" secondAttribute="bottom" constant="8" id="KRr-cX-YoS"/>
+                            <constraint firstItem="ICH-Bg-DaQ" firstAttribute="top" secondItem="g64-ui-Yjh" secondAttribute="bottom" constant="8" id="L7A-PG-JLf"/>
+                            <constraint firstAttribute="width" secondItem="jXj-2n-B1i" secondAttribute="height" multiplier="1:1" constant="-6" id="ozF-kg-hx1"/>
+                            <constraint firstItem="g64-ui-Yjh" firstAttribute="leading" secondItem="jXj-2n-B1i" secondAttribute="leading" id="zEb-06-6BG"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jXj-2n-B1i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="G8m-ea-ruV"/>
+                    <constraint firstItem="jXj-2n-B1i" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="YqE-sL-oOi"/>
+                    <constraint firstAttribute="bottom" secondItem="jXj-2n-B1i" secondAttribute="bottom" id="g5J-Sq-UW9"/>
+                    <constraint firstAttribute="trailing" secondItem="jXj-2n-B1i" secondAttribute="trailing" id="yl5-AM-tUF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="collectionView" destination="g64-ui-Yjh" id="Shy-su-TMl"/>
+                <outlet property="pageControl" destination="ICH-Bg-DaQ" id="8Wk-d7-mFC"/>
+            </connections>
+            <point key="canvasLocation" x="166.66666666666669" y="49.553571428571423"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

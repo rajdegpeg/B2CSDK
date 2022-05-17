@@ -21,22 +21,28 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/Raj Kadam/B2CSDK'
+  s.homepage         = 'https://github.com/rajdegpeg/B2CSDK'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Raj Kadam' => 'rajendra.kadam@degpeg.com' }
-  s.source           = { :git => 'https://github.com/Raj Kadam/B2CSDK.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/rajdegpeg/B2CSDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '13.0'
 
   s.source_files = 'B2CSDK/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'B2CSDK' => ['B2CSDK/Assets/*.png']
-  # }
+   s.resource_bundles = {
+     'B2CSDK' => ['B2CSDK/Assets/Images/*.png', 'B2CSDK/Assets/Images/*.mp4',  'B2CSDK/Assets/*.xib', 'B2CSDK/Assets/TableViewCell/*.xib', 'B2CSDK/Assets/CollectionView/*.xib', 'B2CSDK/Classes/Degpeg.storyboard', 'B2CSDK/Classes/*.xib', 'B2CFramework/Classes/*.xib']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'UIKit', 'Foundation'
+  s.dependency 'Alamofire'
+  s.dependency 'Socket.IO-Client-Swift', '~> 16.0'
+  s.dependency 'MBProgressHUD', '~> 1.2'
+  s.dependency 'Kingfisher', '~> 7.0'
+  s.dependency 'ObjectMapper', '~> 4.2'
 end
