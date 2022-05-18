@@ -7,6 +7,11 @@
 
 import Foundation
 
+let contentPublisherId = "6007cf41f2895e2eabcc2ac2"
+enum channels: String {
+    case StreamToWebsite = "61d974e3cb6b7dc065bd0017"
+}
+
 enum BaseURL {
     case dev
     case staging
