@@ -8,7 +8,9 @@
 import UIKit
 
  class ListViewController: B2CBaseViewController {
-    
+     var viewModel: ListViewModelProtocol?
+     var currentView: UIView?
+     var homeDataArray = [ListSectionData]()
     @IBOutlet weak var listTableView: UITableView!
     var cellBundle: Bundle?
      override func viewDidLoad() {
@@ -16,8 +18,14 @@ import UIKit
         registerCells()
         self.navigationItem.title = "Home"
         print("Is Connected",NetworkManager.isConnectedToInternet)
+         configureVM()
     }
     
+     func configureVM(){
+         self.viewModel = ListViewModel()
+         viewModel?.viewController = self
+         self.currentView = self.view
+     }
      required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -25,6 +33,7 @@ import UIKit
      override func viewWillAppear(_ animated: Bool) {
          super.viewWillAppear(animated)
          hideNavigationBar()
+         viewModel?.getContentPublishers(for: DEFAULT_ContentPublisherId)
      }
     private func registerCells(){
         cellBundle = Bundle.resourceBundle(for: Self.self)
@@ -34,7 +43,11 @@ import UIKit
         listTableView.register(TableCellID.BrandCellID, bundle: cellBundle)
         listTableView.register(TableCellID.UpcomingShowCellID, bundle: cellBundle)
         
+        listTableView.delegate = self
+        listTableView.dataSource = self
     }
+     
+     
     /*
      // MARK: - Navigation
      
@@ -62,6 +75,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderSectionTableViewCell", for: indexPath) as? HeaderSectionTableViewCell {
                 cell.delegate = self
                 cell.registerCell(bundle: cellBundle)
+                if homeDataArray.count > 0 {
+                    cell.configureCell(data: homeDataArray[0].sectionData)
+                }
                 return cell
             }else {
                 return UITableViewCell()
@@ -93,9 +109,26 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ListViewController: LiveScreenRedirectionProtocol {
     
-    func redirectToLiveScreen() {
+    func redirectToLiveScreen(data: RowData) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "LiveScreenViewController") as! LiveScreenViewController
+        vc.screenData = data
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+}
+
+extension ListViewController: ListViewControllerProtocol{
+    
+    func updateSectionData(dataArray: [ListSectionData]) {
+        print(dataArray.count)
+        homeDataArray = [ListSectionData]()
+        homeDataArray = dataArray
+        listTableView.reloadData()
+    }
+    
+    func showError(errorString: String) {
+        showAlertView(title: AlertTitles.Alert, message: errorString)
     }
     
     

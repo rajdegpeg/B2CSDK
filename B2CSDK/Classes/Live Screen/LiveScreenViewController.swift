@@ -25,7 +25,8 @@ class LiveScreenViewController: B2CBaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var messageInputTextView: GrowingTextView!
-    var keyboardHeight: CGFloat = 0
+    
+    var screenData: RowData?
     @IBOutlet weak var commentTextField: TextFieldWithPadding!{
         didSet {
             let redPlaceholderText = NSAttributedString(string: "Post a Comment",
@@ -124,10 +125,9 @@ extension LiveScreenViewController {
     
     
     func playVideo() {
-        let bundle = Bundle.resourceBundle(for: Self.self)
-        let videoString:String? = bundle.path(forResource: "splash_video", ofType: "mp4")
-        guard let unwrappedVideoPath = videoString else { return }
-        player = AVPlayer(url: URL(fileURLWithPath: unwrappedVideoPath))
+      
+        guard let videoString = screenData?.videoUrl, let videoURL = URL.init(string: videoString) else { return }
+        player = AVPlayer.init(url: videoURL)
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspectFill
         playerLayer.frame = videoView.bounds

@@ -7,10 +7,24 @@
 
 import Foundation
 
-let contentPublisherId = "6007cf41f2895e2eabcc2ac2"
-enum channels: String {
-    case StreamToWebsite = "61d974e3cb6b7dc065bd0017"
+let DEFAULT_ContentPublisherId = "6007cf41f2895e2eabcc2ac2"
+
+enum Channels {
+    case dev
+    case staging
+    case live
+    var StreamToWebsiteID: String {
+        switch self {
+        case .dev:
+            return "61d974e3cb6b7dc065bd0017"
+        case .staging:
+            return "61d974e3cb6b7dc065bd0017"
+        case .live:
+            return "61d974e3cb6b7dc065bd0017"
+        }
+    }
 }
+
 
 enum BaseURL {
     case dev
@@ -31,14 +45,14 @@ enum BaseURL {
 let BASE_ACCESS_TOKEN = ""
 struct APIConstants {
     
+    static let channels: Channels = .dev
     static let BaseUrl: BaseURL = .dev
-
     static let AccessToken = "accessToken"
     
-    struct Registration {
-        static let SignUp = "users/signup"
-        static let Login = "users/login"
-        static let Influencer = "influencers"
-    }
+    static let ContentPublisher = "content-publishers/"
+    static let ContentProviders = "content-providers/"
+    static let Channels = "channels/"
+    static let CategoriesList = "live-session-categories/"
+    
     static let UserDetail = "users"
 }

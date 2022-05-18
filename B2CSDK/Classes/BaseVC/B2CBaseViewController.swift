@@ -28,5 +28,14 @@ class B2CBaseViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: - Alert view
+     func showAlertView(title: String, message: String) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK".lowercased(), style: .default, handler: nil)
+            alert.addAction(okAction)
+        
+            present(alert, animated: true, completion: nil)
+    }
 
 }

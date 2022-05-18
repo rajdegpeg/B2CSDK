@@ -9,5 +9,5 @@ import Foundation
 
 protocol LiveScreenRedirectionProtocol: AnyObject {
     
-    func redirectToLiveScreen()
+    func redirectToLiveScreen(data: RowData)
 }

@@ -11,6 +11,7 @@ class TrendingVideosTableViewCell: UITableViewCell {
     
     @IBOutlet weak var trendingButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    var cellDataArray: [RowData] = [RowData]()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +22,9 @@ class TrendingVideosTableViewCell: UITableViewCell {
         collectionView.register(UINib.init(nibName: CollectionCellID.TrendingCellID, bundle: bundle), forCellWithReuseIdentifier: CollectionCellID.TrendingCellID)
     }
     
+    func configureCell(data: [RowData]) {
+        self.cellDataArray = data
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -41,7 +45,7 @@ extension TrendingVideosTableViewCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return cellDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
