@@ -85,6 +85,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.TrendingCellID, for: indexPath) as! TrendingVideosTableViewCell
             cell.registerCell(bundle: cellBundle)
+            if homeDataArray.count > 1 {
+                cell.configureCell(data: homeDataArray[1].sectionData)
+            }
             return cell
         }else if indexPath.section == 2{
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.CategoryCellID, for: indexPath) as! CategoryTableViewCell
@@ -93,6 +96,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.section == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.UpcomingShowCellID, for: indexPath) as! UpcomingShowsTableViewCell
             cell.registerCell(bundle: cellBundle)
+            if homeDataArray.count > 1 {
+                cell.configureCell(data: homeDataArray[1].sectionData)
+            }
             return cell
         }
         else {

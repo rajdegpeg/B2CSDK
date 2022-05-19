@@ -34,3 +34,8 @@ struct CollectionCellID {
     static let UpcomingShowCellID = "UpcomingShowCollectionViewCell"
     static let CTACellID = "CTACollectionViewCell"
 }
+
+
+struct ImageConstants {
+    static let placeholderImage = "dummy2.png"
+}

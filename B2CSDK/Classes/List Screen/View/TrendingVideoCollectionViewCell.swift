@@ -13,6 +13,7 @@ class TrendingVideoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelViewCount: UILabel!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var countView: UIView!
+    @IBOutlet weak var eyeImage: UIImageView!
     @IBOutlet weak var videoImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,20 +23,40 @@ class TrendingVideoCollectionViewCell: UICollectionViewCell {
     func configureUI(){
         statusView.customRoundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 5)
         countView.customRoundCorners(corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner], radius: 5)
+        videoImage.layer.cornerRadius = 5
     }
     
     func configureCell(data: RowData) {
         
+        if let status = data.status, status.lowercased() == "live" {
+            labelStatus.text = data.status
+            statusView.isHidden = false
+            countView.isHidden = false
+            labelViewCount.isHidden = false
+            eyeImage.isHidden = false
+        }else {
+            statusView.isHidden = true
+            countView.isHidden = true
+            labelViewCount.isHidden = true
+            eyeImage.isHidden = true
+        }
+        
+        if let imageStr = data.imageUrl {
+            setVideoImage(imageString: imageStr)
+        }else{
+            videoImage.image = UIImage(named: ImageConstants.placeholderImage)
+        }
     }
     
-    func setProfileImage(imageString: String) {
+    
+    func setVideoImage(imageString: String) {
         let url = URL(string: imageString)
         let processor = DownsamplingImageProcessor(size: videoImage.bounds.size)
-            |> RoundCornerImageProcessor(cornerRadius: 0)
+            |> RoundCornerImageProcessor(cornerRadius: 5)
         videoImage.kf.indicatorType = .activity
         videoImage.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "placeholderImage"),
+            placeholder: UIImage(named: ImageConstants.placeholderImage),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),

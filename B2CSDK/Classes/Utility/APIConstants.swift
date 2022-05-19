@@ -13,14 +13,14 @@ enum Channels {
     case dev
     case staging
     case live
-    var StreamToWebsiteID: String {
+    var StreamToWebsiteID: (String, String) {
         switch self {
         case .dev:
-            return "61d974e3cb6b7dc065bd0017"
+            return ("61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770")
         case .staging:
-            return "61d974e3cb6b7dc065bd0017"
+            return ("61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770")
         case .live:
-            return "61d974e3cb6b7dc065bd0017"
+            return ("61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770")
         }
     }
 }
@@ -43,9 +43,10 @@ enum BaseURL {
     }
 }
 let BASE_ACCESS_TOKEN = ""
+let CHANNELS: Channels = .dev
 struct APIConstants {
     
-    static let channels: Channels = .dev
+    
     static let BaseUrl: BaseURL = .dev
     static let AccessToken = "accessToken"
     

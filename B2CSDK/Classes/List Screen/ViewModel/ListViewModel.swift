@@ -76,8 +76,12 @@ final class ListViewModel: ListViewModelProtocol {
         var rowData: [RowData] = [RowData]()
         
         videos.forEach { video in
-            let oneRecord = RowData.init(id: video.id, videoUrl: video.videoUrl, imageUrl: video.bannerUrl, sessionDataId: video.sessionDataId, contentProviderId: video.contentProviderId, liveSessionCategory: video.liveSessionCategory, stream_key: video.streamKey, sessionType: video.sessionType, session_pass_code: video.sessionPassCode, name: video.name, description: video.description, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil)
-            rowData.append(oneRecord)
+            if let channels  = video.channelIds{
+                if channels.contains(CHANNELS.StreamToWebsiteID.0) || channels.contains(CHANNELS.StreamToWebsiteID.1) {
+                    let oneRecord = RowData.init(id: video.id, sessionDate: video.dateTime, videoUrl: video.videoUrl, status: video.status, imageUrl: video.bannerUrl, sessionDataId: video.sessionDataId, contentProviderId: video.contentProviderId, liveSessionCategory: video.liveSessionCategory, streamKey: video.streamKey, sessionType: video.sessionType, sessionPassCode: video.sessionPassCode, name: video.name, description: video.description, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil)
+                    rowData.append(oneRecord)
+                }
+            }
         }
         let liveData = ListSectionData.init(sectionName: "Live", sectionData: rowData)
         

@@ -30,7 +30,7 @@ struct ContentProviderDetailsModel: Mappable {
     var id: String?
     var status: String?
     var name: String?
-    var date_time: String?
+    var dateTime: String?
     var duration: String?
     var videoUrl: String?
     var bannerUrl: String?
@@ -49,7 +49,7 @@ struct ContentProviderDetailsModel: Mappable {
         id <- map["id"]
         status <- map["status"]
         name <- map["name"]
-        date_time <- map["date_time"]
+        dateTime <- map["date_time"]
         duration <- map["duration"]
         videoUrl <- map["url"]
         bannerUrl <- map["banner_url"]
@@ -125,14 +125,16 @@ struct ListSectionData {
 
 struct RowData {
     var id: String?
+    var sessionDate: String?
     var videoUrl: String?
+    var status: String?
     var imageUrl: String?
     var sessionDataId: String?
     var contentProviderId: String?
     var liveSessionCategory: LiveSessionCategoryData?
-    var stream_key: String?
+    var streamKey: String?
     var sessionType: String?
-    var session_pass_code: String?
+    var sessionPassCode: String?
     var name: String?
     var description: String?
     var userName: String?

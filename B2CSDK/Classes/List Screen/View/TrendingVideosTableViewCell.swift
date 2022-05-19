@@ -22,8 +22,11 @@ class TrendingVideosTableViewCell: UITableViewCell {
         collectionView.register(UINib.init(nibName: CollectionCellID.TrendingCellID, bundle: bundle), forCellWithReuseIdentifier: CollectionCellID.TrendingCellID)
     }
     
-    func configureCell(data: [RowData]) {
-        self.cellDataArray = data
+    func configureCell(data: [RowData]?) {
+        if let sellData = data {
+            self.cellDataArray = sellData
+            collectionView.reloadData()
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -51,6 +54,7 @@ extension TrendingVideosTableViewCell: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellID.TrendingCellID, for: indexPath) as! TrendingVideoCollectionViewCell
         cell.configureUI()
+        cell.configureCell(data: cellDataArray[indexPath.row])
         return cell
     }
     

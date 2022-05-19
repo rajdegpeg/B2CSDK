@@ -32,6 +32,8 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         
         if let imageStr = data.imageUrl {
             setProfileImage(imageString: imageStr)
+        }else{
+            videoImage.image = UIImage(named: ImageConstants.placeholderImage)
         }
     }
     
@@ -42,7 +44,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         videoImage.kf.indicatorType = .activity
         videoImage.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "placeholderImage"),
+            placeholder: UIImage(named: ImageConstants.placeholderImage),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),

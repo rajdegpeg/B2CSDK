@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -60,19 +60,19 @@
                             <constraint firstAttribute="height" constant="20" id="yTW-Hg-hwb"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watched_icon" translatesAutoresizingMaskIntoConstraints="NO" id="xmN-qh-FbI">
-                        <rect key="frame" x="46" y="56" width="18" height="20"/>
-                        <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="18" id="uix-Hm-bxF"/>
-                        </constraints>
-                    </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tdv-cd-eWn">
-                        <rect key="frame" x="64" y="56" width="16.5" height="20"/>
+                        <rect key="frame" x="46" y="56" width="36.5" height="20"/>
                         <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="xmN-qh-FbI">
+                        <rect key="frame" x="48" y="56" width="16" height="20"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="uix-Hm-bxF"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 1  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAS-SW-zhp">
-                        <rect key="frame" x="64" y="56" width="16.5" height="20"/>
+                        <rect key="frame" x="66" y="56" width="16.5" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,17 +103,17 @@
                 <constraint firstItem="X66-17-bog" firstAttribute="top" secondItem="qFI-Tb-GMW" secondAttribute="top" constant="-15" id="G7U-Tl-7sC"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lAS-SW-zhp" secondAttribute="trailing" constant="20" id="KFS-ze-uHF"/>
                 <constraint firstItem="Tdv-cd-eWn" firstAttribute="top" secondItem="lAS-SW-zhp" secondAttribute="top" id="LJ1-kd-w8d"/>
-                <constraint firstItem="Tdv-cd-eWn" firstAttribute="leading" secondItem="lAS-SW-zhp" secondAttribute="leading" id="OMX-m8-6ZB"/>
                 <constraint firstItem="d61-Pf-cDV" firstAttribute="top" secondItem="YaW-nW-P2K" secondAttribute="top" id="Oqz-Nx-VKz"/>
-                <constraint firstItem="lAS-SW-zhp" firstAttribute="leading" secondItem="xmN-qh-FbI" secondAttribute="trailing" id="Vpz-ii-KaC"/>
+                <constraint firstItem="lAS-SW-zhp" firstAttribute="leading" secondItem="xmN-qh-FbI" secondAttribute="trailing" constant="2" id="Vpz-ii-KaC"/>
                 <constraint firstAttribute="trailing" secondItem="cOM-yL-RzN" secondAttribute="trailing" constant="5" id="WhX-xf-efk"/>
                 <constraint firstItem="d61-Pf-cDV" firstAttribute="bottom" secondItem="YaW-nW-P2K" secondAttribute="bottom" id="Xus-RF-kkq"/>
                 <constraint firstItem="X66-17-bog" firstAttribute="top" secondItem="YaW-nW-P2K" secondAttribute="bottom" constant="8" id="aB3-fL-eyR"/>
                 <constraint firstItem="Tdv-cd-eWn" firstAttribute="bottom" secondItem="lAS-SW-zhp" secondAttribute="bottom" id="bkf-pf-ocd"/>
                 <constraint firstItem="d61-Pf-cDV" firstAttribute="leading" secondItem="YaW-nW-P2K" secondAttribute="trailing" constant="8" id="g3a-dG-chx"/>
+                <constraint firstItem="Tdv-cd-eWn" firstAttribute="leading" secondItem="qFI-Tb-GMW" secondAttribute="trailing" id="gbj-ot-sJ3"/>
                 <constraint firstItem="qFI-Tb-GMW" firstAttribute="leading" secondItem="rxI-ch-sZd" secondAttribute="leading" constant="8" id="hbn-Nq-ocU"/>
                 <constraint firstItem="cOM-yL-RzN" firstAttribute="top" secondItem="X66-17-bog" secondAttribute="bottom" constant="5" id="ii0-wu-fc4"/>
-                <constraint firstItem="xmN-qh-FbI" firstAttribute="leading" secondItem="qFI-Tb-GMW" secondAttribute="trailing" id="jaH-Zj-aMS"/>
+                <constraint firstItem="xmN-qh-FbI" firstAttribute="leading" secondItem="qFI-Tb-GMW" secondAttribute="trailing" constant="2" id="jaH-Zj-aMS"/>
                 <constraint firstItem="xmN-qh-FbI" firstAttribute="bottom" secondItem="qFI-Tb-GMW" secondAttribute="bottom" id="lWQ-Xp-C0v"/>
                 <constraint firstItem="xmN-qh-FbI" firstAttribute="top" secondItem="qFI-Tb-GMW" secondAttribute="top" id="nTV-sG-MOd"/>
                 <constraint firstAttribute="trailing" secondItem="X66-17-bog" secondAttribute="trailing" id="ng6-OW-syJ"/>
@@ -124,6 +124,7 @@
             </constraints>
             <connections>
                 <outlet property="countView" destination="Tdv-cd-eWn" id="5JZ-e4-nfT"/>
+                <outlet property="eyeImage" destination="xmN-qh-FbI" id="77l-o0-kUC"/>
                 <outlet property="labelShowName" destination="cOM-yL-RzN" id="hFY-m3-3TX"/>
                 <outlet property="labelShwoTime" destination="d61-Pf-cDV" id="GSM-NJ-Q6N"/>
                 <outlet property="labelStatus" destination="zi7-au-DNE" id="KgW-MA-T22"/>
@@ -137,6 +138,6 @@
     <resources>
         <image name="calendar_icon.png" width="21.333333969116211" height="18.666666030883789"/>
         <image name="dummy2.png" width="390" height="401"/>
-        <image name="watched_icon" width="14" height="14"/>
+        <image name="eye.png" width="14" height="14"/>
     </resources>
 </document>

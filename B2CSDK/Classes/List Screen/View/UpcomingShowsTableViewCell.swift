@@ -11,6 +11,7 @@ class UpcomingShowsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var upcomingShowButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    var cellDataArray: [RowData] = [RowData]()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +22,12 @@ class UpcomingShowsTableViewCell: UITableViewCell {
         collectionView.register(UINib.init(nibName: CollectionCellID.UpcomingShowCellID, bundle: bundle), forCellWithReuseIdentifier: CollectionCellID.UpcomingShowCellID)
     }
     
+    func configureCell(data: [RowData]?) {
+        if let sellData = data {
+            self.cellDataArray = sellData
+            collectionView.reloadData()
+        }
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -41,7 +48,7 @@ extension UpcomingShowsTableViewCell: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return cellDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -52,6 +59,7 @@ extension UpcomingShowsTableViewCell: UICollectionViewDelegate, UICollectionView
         }else {
             cell.labelShowName.text = "Comedy show with"
         }
+        cell.configureCell(data: cellDataArray[indexPath.row])
         return cell
     }
     
