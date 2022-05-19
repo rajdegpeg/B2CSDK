@@ -37,5 +37,5 @@ struct CollectionCellID {
 
 
 struct ImageConstants {
-    static let placeholderImage = "dummy2.png"
+    static let placeholderImage = "dummy2"
 }

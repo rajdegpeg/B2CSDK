@@ -33,7 +33,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         if let imageStr = data.imageUrl {
             setProfileImage(imageString: imageStr)
         }else{
-            videoImage.image = UIImage(named: ImageConstants.placeholderImage)
+            videoImage.image = UIImage.getPlaceholderImage()
         }
     }
     

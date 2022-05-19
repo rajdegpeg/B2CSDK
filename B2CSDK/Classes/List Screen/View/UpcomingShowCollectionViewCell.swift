@@ -42,13 +42,12 @@ class UpcomingShowCollectionViewCell: UICollectionViewCell {
             labelViewCount.isHidden = true
             eyeImage.isHidden = true
         }
-        print("Session Time ", data.sessionDate?.stringToDate()?.dateToString())
         labelShwoTime.text = data.sessionDate?.stringToDate()?.dateToString()
         labelShowName.text = data.name
         if let imageStr = data.imageUrl {
             setVideoImage(imageString: imageStr)
         }else{
-            videoImage.image = UIImage(named: ImageConstants.placeholderImage)
+            videoImage.image = UIImage.getPlaceholderImage()
         }
     }
     

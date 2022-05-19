@@ -19,6 +19,14 @@ class B2CBaseViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
 
+    deinit {
+        Logs.print("Deinit Viewcontrollers: ", self)
+        removeObserver()
+    }
+    
+    func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
     /*
     // MARK: - Navigation
 

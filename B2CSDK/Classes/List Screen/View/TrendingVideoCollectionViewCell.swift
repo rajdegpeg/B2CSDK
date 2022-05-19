@@ -44,7 +44,7 @@ class TrendingVideoCollectionViewCell: UICollectionViewCell {
         if let imageStr = data.imageUrl {
             setVideoImage(imageString: imageStr)
         }else{
-            videoImage.image = UIImage(named: ImageConstants.placeholderImage)
+            videoImage.image = UIImage.getPlaceholderImage()
         }
     }
     

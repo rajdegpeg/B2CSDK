@@ -14,7 +14,7 @@ final class ListViewModel: ListViewModelProtocol {
     var videos:[ContentProviderDetailsModel] = [ContentProviderDetailsModel]()
     
     func getContentPublishers(for publisherId: String) {
-   
+    
         if NetworkManager.isConnectedToInternet {
             UIUtils.showHUD(view: viewController?.currentView)
             HomeService().getContentPublisherDetails(contentPublisherId: publisherId) { [weak self] publisher, error in
@@ -23,7 +23,6 @@ final class ListViewModel: ListViewModelProtocol {
                 if publisher != nil {
                     self.contentPublisher = publisher
                     self.getAllHomeData()
-                    print("Profile updated successfully")
                 } else {
                     //UIUtils.showDefaultAlertView(title: AlertTitles.Error, message: error?.message ?? "Something went wrong")
                     self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
@@ -34,8 +33,9 @@ final class ListViewModel: ListViewModelProtocol {
         }
         
     }
-  
+    
     func getAllHomeData() {
+        videos = [ContentProviderDetailsModel]()
         if let providers = contentPublisher?.contentProviders, providers.count > 0 {
             getContentProviderVideos(for: providers, index: 0)
             
@@ -73,6 +73,11 @@ final class ListViewModel: ListViewModelProtocol {
     }
     
     func createHomeData() {
+        listSectionData = [ListSectionData]()
+        
+        var tp = UserFilter.init()
+        let val = tp.createUserFilter(id: "456")
+        print("Filter Value", val)
         var rowData: [RowData] = [RowData]()
         
         videos.forEach { video in

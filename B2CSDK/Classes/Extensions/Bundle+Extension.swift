@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public extension Bundle {
 
@@ -22,3 +23,11 @@ public extension Bundle {
     }
 }
  
+
+
+extension UIImage {
+    
+    static func getPlaceholderImage() -> UIImage? {
+        return UIImage(named: ImageConstants.placeholderImage, in: Bundle.resourceBundle(for: ListViewController.self), compatibleWith: nil)
+    }
+}

@@ -97,7 +97,7 @@ struct UserDetails: Mappable {
     var contentProviderId: String?
     var mobile: String?
     var otp: String?
-    var roles: [String]?
+    //var roles: [String]?
     var status: String?
     
     init?(map: Map) { }
@@ -110,10 +110,11 @@ struct UserDetails: Mappable {
         id <- map["id"]
         influencerId <- map["influencerId"]
         mobile <- map["mobile"]
-        displayPicture <- map["avatar"]
-        roles <- map["roles"]
+        displayPicture <- map["displayPicture"]
+        //roles <- map["roles"]
         contentProviderId <- map["contentProviderId"]
         otp <- map["otp"]
+        status <- map["status"]
     }
 }
 
@@ -141,4 +142,33 @@ struct RowData {
     var userImage: String?
     var userID: String?
     var userContentProviderId: String?
+    
+}
+
+struct UserFilter {
+    
+     var providerID = ""
+    mutating func createUserFilter(id: String) -> [String: Any]{
+        
+        providerID = id
+        
+        return filter
+    }
+     var filter: [String: Any] {
+        return [
+            "filter" : filterProviderId,
+        ]
+    }
+    
+     var filterProviderId: [String: Any] {
+        return [
+            "where": providerIdFilter
+        ]
+    }
+    
+     var providerIdFilter: [String: Any] {
+        return [
+            "contentProviderId": providerID
+        ]
+    }
 }

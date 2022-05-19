@@ -10,6 +10,9 @@ import AVFoundation
 import GrowingTextView
 
 class LiveScreenViewController: B2CBaseViewController {
+    var viewModel: LiveScreenViewModelProtocol?
+    var currentView: UIView?
+    
     @IBOutlet weak var videoView: UIView!
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -41,6 +44,17 @@ class LiveScreenViewController: B2CBaseViewController {
         super.viewDidLoad()
         setupUI()
         registerCells()
+        configureVM()
+   }
+   
+    func configureVM(){
+        viewModel = LiveScreenViewModel()
+        viewModel?.viewController = self
+        currentView = self.view
+        
+        if let providerId = screenData?.contentProviderId {
+            viewModel?.getUserData(for: providerId)
+        }
     }
     
     
@@ -51,7 +65,11 @@ class LiveScreenViewController: B2CBaseViewController {
         
         collectionView.register(UINib.init(nibName: CollectionCellID.CTACellID, bundle: cellBundle), forCellWithReuseIdentifier: CollectionCellID.CTACellID)
     }
+    
     @IBAction func closeButtonAction(_ sender: UIButton) {
+        player?.seek(to: CMTimeMakeWithSeconds(Float64(0), 1) )
+        player?.pause()
+        removeObserver()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -68,7 +86,7 @@ class LiveScreenViewController: B2CBaseViewController {
      */
     
 }
-
+// MARK: - UI Setup
 extension LiveScreenViewController {
     
     func setupUI() {
@@ -129,7 +147,7 @@ extension LiveScreenViewController {
         guard let videoString = screenData?.videoUrl, let videoURL = URL.init(string: videoString) else { return }
         player = AVPlayer.init(url: videoURL)
         let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.videoGravity = .resizeAspect
         playerLayer.frame = videoView.bounds
         videoView.layer.addSublayer(playerLayer)
         player?.play()
@@ -137,6 +155,7 @@ extension LiveScreenViewController {
     
 }
 
+// MARK: - Collection Delegate and Datasource
 extension LiveScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -160,6 +179,7 @@ extension LiveScreenViewController: UICollectionViewDelegate, UICollectionViewDa
     
 }
 
+// MARK: - TableView Delegate and Datasource
 extension LiveScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
@@ -191,6 +211,50 @@ extension LiveScreenViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    
+}
+import Kingfisher
+// MARK: - LiveScreenViewControllerProtocol
+extension LiveScreenViewController: LiveScreenViewControllerProtocol {
+   
+    func updateUserData(user: UserDetails) {
+        
+        name.text = user.firstName
+        if let imageStr = user.displayPicture {
+            setProfileImage(imageString: imageStr)
+        }else{
+            profileImage.image = UIImage(named: ImageConstants.placeholderImage)
+        }
+    }
+    
+    func showError(errorString: String) {
+        showAlertView(title: AlertTitles.Error, message: errorString)
+    }
+    
+    func setProfileImage(imageString: String) {
+        let url = URL(string: imageString)
+        let processor = DownsamplingImageProcessor(size: profileImage.bounds.size)
+        |> RoundCornerImageProcessor(cornerRadius: profileImage.frame.size.height/2)
+        profileImage.kf.indicatorType = .activity
+        profileImage.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: ImageConstants.placeholderImage),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
+        {
+            result in
+            switch result {
+            case .success(let value):
+                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+            case .failure(let error):
+                print("Job failed: \(error.localizedDescription)")
+            }
+        }
+    }
     
 }
 
