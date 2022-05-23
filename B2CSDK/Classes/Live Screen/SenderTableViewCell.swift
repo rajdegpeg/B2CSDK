@@ -21,6 +21,9 @@ class SenderTableViewCell: UITableViewCell {
         profileImage.layer.borderWidth = 1
         profileImage.layer.borderColor = UIColor.primaryColor.cgColor
     }
+    func setupCellData(comment: CommentsModel) {
+        messageLabel.text = comment.message
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

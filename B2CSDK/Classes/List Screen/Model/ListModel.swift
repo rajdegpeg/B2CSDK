@@ -8,7 +8,31 @@
 import Foundation
 import ObjectMapper
 
-
+struct ChannelData: Mappable
+{
+    var id: String?
+    var name: String?
+    var description: String?
+    var contentProviderId: [String]?
+    
+     var isWebToStream: Bool {
+        
+        if name == "Stream To Website" {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    init?(map: Map) {}
+    mutating func mapping(map: Map) {
+        id <- map["id"]
+        description <- map["status"]
+        name <- map["name"]
+        contentProviderId <- map["contentProviders"]
+        
+    }
+}
 struct ContentPublishersDetails: Mappable {
     var id: String?
     var status: String?
@@ -25,10 +49,12 @@ struct ContentPublishersDetails: Mappable {
         
     }
 }
+
 struct ContentProviderDetailsModel: Mappable {
     
     var id: String?
-    var status: String?
+    //var status: String?
+    var status: SessionStatus?
     var name: String?
     var dateTime: String?
     var duration: String?
@@ -42,7 +68,8 @@ struct ContentProviderDetailsModel: Mappable {
     var description: String?
     var sessionType: String?
     var sessionPassCode: String?
-    var liveSessionCategory: LiveSessionCategoryData?
+    var products: [String]?
+    var liveSessionCategory: CategoryData?
     
     init?(map: Map) {}
     mutating func mapping(map: Map) {
@@ -62,12 +89,13 @@ struct ContentProviderDetailsModel: Mappable {
         sessionType <- map["sessionType"]
         sessionPassCode <- map["session_pass_code"]
         liveSessionCategory <- map["liveSessionCategory"]
+        products <- map["products"]
     }
     
     
 }
 
-struct LiveSessionCategoryData: Mappable {
+struct CategoryData: Mappable {
     var id: String?
     var description: String?
     var name: String?
@@ -77,6 +105,9 @@ struct LiveSessionCategoryData: Mappable {
     
     mutating func mapping(map: Map) {
         categoryImageUrl <- map["categoryImage_url"]
+        name <- map["name"]
+        description <- map["description"]
+        id <- map["id"]
     }
     
     
@@ -120,19 +151,26 @@ struct UserDetails: Mappable {
 
 // MARK: - Custom List Data Model
 struct ListSectionData {
-    var sectionName: String
+    var sectionName: HomeSections
     var sectionData: [RowData]?
 }
 
+enum HomeSections {
+    case live
+    case trending
+    case category
+    case upcoming
+    case brand
+}
 struct RowData {
     var id: String?
-    var sessionDate: String?
+    var sessionDate: Date
     var videoUrl: String?
-    var status: String?
+    var status: SessionStatus?
     var imageUrl: String?
     var sessionDataId: String?
     var contentProviderId: String?
-    var liveSessionCategory: LiveSessionCategoryData?
+    var liveSessionCategory: CategoryData?
     var streamKey: String?
     var sessionType: String?
     var sessionPassCode: String?

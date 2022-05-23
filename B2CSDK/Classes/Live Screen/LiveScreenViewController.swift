@@ -30,6 +30,8 @@ class LiveScreenViewController: B2CBaseViewController {
     @IBOutlet weak var messageInputTextView: GrowingTextView!
     
     var screenData: RowData?
+    var commentsArray = [CommentsModel]()
+    var productList: [Product] = [Product]()
     @IBOutlet weak var commentTextField: TextFieldWithPadding!{
         didSet {
             let redPlaceholderText = NSAttributedString(string: "Post a Comment",
@@ -55,6 +57,14 @@ class LiveScreenViewController: B2CBaseViewController {
         if let providerId = screenData?.contentProviderId {
             viewModel?.getUserData(for: providerId)
         }
+        
+        if let sessionId = screenData?.id {
+            viewModel?.getComments(for: sessionId)
+            viewModel?.getSessionDetails(liveSessionId: sessionId)
+            viewModel?.getViewCount(for: sessionId)
+        }
+        
+        
     }
     
     
@@ -63,7 +73,7 @@ class LiveScreenViewController: B2CBaseViewController {
         messageTableView.register(TableCellID.ReceiverCell, bundle: cellBundle)
         messageTableView.register(TableCellID.SenderCell, bundle: cellBundle)
         
-        collectionView.register(UINib.init(nibName: CollectionCellID.CTACellID, bundle: cellBundle), forCellWithReuseIdentifier: CollectionCellID.CTACellID)
+        collectionView.register(UINib.init(nibName: CollectionCellID.ProductCellID, bundle: cellBundle), forCellWithReuseIdentifier: CollectionCellID.ProductCellID)
     }
     
     @IBAction func closeButtonAction(_ sender: UIButton) {
@@ -147,7 +157,7 @@ extension LiveScreenViewController {
         guard let videoString = screenData?.videoUrl, let videoURL = URL.init(string: videoString) else { return }
         player = AVPlayer.init(url: videoURL)
         let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspect
+        playerLayer.videoGravity = .resizeAspectFill
         playerLayer.frame = videoView.bounds
         videoView.layer.addSublayer(playerLayer)
         player?.play()
@@ -160,19 +170,21 @@ extension LiveScreenViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let height = 74
-        let width = 180
+        let height = 84
+        let width = 190
         return CGSize(width: width, height: height)
         
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return productList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellID.CTACellID, for: indexPath) as! CTACollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellID.ProductCellID, for: indexPath) as! ProductCollectionViewCell
+        cell.configureUI()
+        cell.delegate = self
+        cell.configureCell(data: productList[indexPath.row])
         return cell
     }
     
@@ -182,28 +194,23 @@ extension LiveScreenViewController: UICollectionViewDelegate, UICollectionViewDa
 // MARK: - TableView Delegate and Datasource
 extension LiveScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return commentsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 3 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.SenderCell, for: indexPath) as? SenderTableViewCell {
-                cell.configureUI()
-                cell.messageLabel.text = "Cupon Code ZH100 😆"
-                return cell
-            }else {
-                return UITableViewCell()
-            }
-        }
+//        if indexPath.row == 3 {
+//            if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.SenderCell, for: indexPath) as? SenderTableViewCell {
+//                cell.configureUI()
+//                cell.messageLabel.text = "Cupon Code ZH100 😆"
+//                return cell
+//            }else {
+//                return UITableViewCell()
+//            }
+//        }
         if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.ReceiverCell, for: indexPath) as? ReceiverTableViewCell {
             cell.configureUI()
-            if indexPath.row == 0 {
-                cell.messageLabel.text = "Hi, How Are You?"
-            }
-            if indexPath.row == 1 {
-                cell.messageLabel.text = "Hi, How Are You? Good to See u again.."
-            }
+            cell.setupCellData(comment: commentsArray[indexPath.row])
             return cell
         }else {
             return UITableViewCell()
@@ -216,6 +223,30 @@ extension LiveScreenViewController: UITableViewDelegate, UITableViewDataSource {
 import Kingfisher
 // MARK: - LiveScreenViewControllerProtocol
 extension LiveScreenViewController: LiveScreenViewControllerProtocol {
+    
+    func updateProduct(product: Product) {
+        if productList.count == 0 {
+            productList.append(product)
+        } else {
+            productList = [product]
+        }
+        collectionView.reloadData()
+    }
+    
+    
+    func updateViewCount(viewCount: ViewCountModel)
+    {
+        if let count = viewCount.count {
+            self.labelViewCount.text = "\(count.formatUsingAbbrevation())  "
+        }
+        
+    }
+    func updateCommentsArray(comments: [CommentsModel]) {
+        commentsArray = comments
+//        if commentsArray.count =
+        messageTableView.reloadData()
+    }
+    
    
     func updateUserData(user: UserDetails) {
         
@@ -252,6 +283,26 @@ extension LiveScreenViewController: LiveScreenViewControllerProtocol {
                 print("Task done for: \(value.source.url?.absoluteString ?? "")")
             case .failure(let error):
                 print("Job failed: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+}
+
+extension LiveScreenViewController: LiveScreenActionProtocols {
+    func productBuyAction(product: Product?) {
+        
+        if let product = product, let urlString = product.purchase_link, let productUrl = URL.init(string: urlString) {
+            openSocialLinks(url: productUrl)
+        }
+    }
+    
+    func openSocialLinks(url: URL){
+        
+        if UIApplication.shared.canOpenURL(url)
+        {
+            UIApplication.shared.open(url, options: [:]) { (flag) in
+                
             }
         }
     }

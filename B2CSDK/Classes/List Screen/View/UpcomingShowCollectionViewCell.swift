@@ -16,6 +16,7 @@ class UpcomingShowCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var countView: UIView!
     @IBOutlet weak var eyeImage: UIImageView!
     @IBOutlet weak var videoImage: UIImageView!
+    @IBOutlet weak var statusLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,23 +27,33 @@ class UpcomingShowCollectionViewCell: UICollectionViewCell {
         videoImage.clipsToBounds = true
         statusView.customRoundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 5)
         countView.customRoundCorners(corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner], radius: 5)
+        statusLabel.layer.cornerRadius = 5
     }
     
     func configureCell(data: RowData) {
         
-        if let status = data.status, status.lowercased() == "live" {
-            labelStatus.text = data.status
+//        if let status = data.status, status.lowercased() == "live" {
+        if let status = data.status, status == .live {
+            labelStatus.text = status.status
             statusView.isHidden = false
             countView.isHidden = false
             labelViewCount.isHidden = false
             eyeImage.isHidden = false
+            statusLabel.isHidden = true
         }else {
+            statusLabel.isHidden = true
             statusView.isHidden = true
             countView.isHidden = true
             labelViewCount.isHidden = true
             eyeImage.isHidden = true
         }
-        labelShwoTime.text = data.sessionDate?.stringToDate()?.dateToString()
+        
+        if data.status == .completed {
+            statusLabel.isHidden = false
+            statusLabel.text = data.status?.status
+        }
+        
+        labelShwoTime.text = data.sessionDate.dateToString()
         labelShowName.text = data.name
         if let imageStr = data.imageUrl {
             setVideoImage(imageString: imageStr)

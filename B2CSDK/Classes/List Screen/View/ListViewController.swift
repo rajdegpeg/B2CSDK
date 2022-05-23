@@ -33,6 +33,7 @@ import UIKit
      override func viewWillAppear(_ animated: Bool) {
          super.viewWillAppear(animated)
          hideNavigationBar()
+         viewModel?.fetchAllCategories()
          viewModel?.getContentPublishers(for: DEFAULT_ContentPublisherId)
      }
     private func registerCells(){
@@ -63,7 +64,7 @@ import UIKit
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
      func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+         return homeDataArray.count
     }
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -71,34 +72,34 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
+         if homeDataArray[indexPath.section].sectionName == .live {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderSectionTableViewCell", for: indexPath) as? HeaderSectionTableViewCell {
                 cell.delegate = self
                 cell.registerCell(bundle: cellBundle)
                 if homeDataArray.count > 0 {
-                    cell.configureCell(data: homeDataArray[0].sectionData)
+                    cell.configureCell(data: homeDataArray[indexPath.section].sectionData)
                 }
                 return cell
             }else {
                 return UITableViewCell()
             }
-        }else if indexPath.section == 1 {
+        }else if homeDataArray[indexPath.section].sectionName == .trending {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.TrendingCellID, for: indexPath) as! TrendingVideosTableViewCell
             cell.registerCell(bundle: cellBundle)
             if homeDataArray.count > 1 {
-                cell.configureCell(data: homeDataArray[1].sectionData)
+                cell.configureCell(data: homeDataArray[indexPath.section].sectionData)
             }
             return cell
-        }else if indexPath.section == 2{
+        }else if homeDataArray[indexPath.section].sectionName == .category {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.CategoryCellID, for: indexPath) as! CategoryTableViewCell
             cell.registerCell(bundle: cellBundle)
+            cell.configureCell(data: homeDataArray[indexPath.section].sectionData)
             return cell
-        }else if indexPath.section == 3{
+        }else if homeDataArray[indexPath.section].sectionName == .upcoming {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.UpcomingShowCellID, for: indexPath) as! UpcomingShowsTableViewCell
             cell.registerCell(bundle: cellBundle)
-            if homeDataArray.count > 1 {
-                cell.configureCell(data: homeDataArray[1].sectionData)
-            }
+            cell.configureCell(data: homeDataArray[indexPath.section].sectionData)
+            
             return cell
         }
         else {

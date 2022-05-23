@@ -36,36 +36,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="334" height="311"/>
                         <color key="backgroundColor" white="0.0" alpha="0.16448974609375" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eaV-f9-vBH">
-                        <rect key="frame" x="24" y="34" width="38" height="24"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="kHj-rf-V1t">
-                                <rect key="frame" x="2" y="0.0" width="34" height="24"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.83921568629999999" green="0.08235294118" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Live  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="kHj-rf-V1t">
+                        <rect key="frame" x="24" y="34" width="41" height="24"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.20784313730000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="kHj-rf-V1t" firstAttribute="centerX" secondItem="eaV-f9-vBH" secondAttribute="centerX" id="F57-l6-WUW"/>
-                            <constraint firstItem="kHj-rf-V1t" firstAttribute="leading" secondItem="eaV-f9-vBH" secondAttribute="leading" constant="2" id="N5K-Du-vVr"/>
-                            <constraint firstItem="kHj-rf-V1t" firstAttribute="centerY" secondItem="eaV-f9-vBH" secondAttribute="centerY" id="S0b-tx-bcc"/>
-                            <constraint firstAttribute="trailing" secondItem="kHj-rf-V1t" secondAttribute="trailing" constant="2" id="bGS-pq-EMU"/>
-                            <constraint firstAttribute="bottom" secondItem="kHj-rf-V1t" secondAttribute="bottom" id="cht-8X-6Ve"/>
-                            <constraint firstAttribute="height" constant="24" id="dBO-Er-Uuf"/>
-                            <constraint firstItem="kHj-rf-V1t" firstAttribute="top" secondItem="eaV-f9-vBH" secondAttribute="top" id="jM9-cl-DFe"/>
-                            <constraint firstAttribute="width" constant="38" id="r19-jT-r9C"/>
+                            <constraint firstAttribute="height" constant="24" id="oIx-lS-aIE"/>
                         </constraints>
-                    </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBQ-IW-4uF">
+                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBQ-IW-4uF">
                         <rect key="frame" x="24" y="271" width="286" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKV-a5-kuN">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKV-a5-kuN">
                         <rect key="frame" x="24" y="234" width="286" height="33"/>
                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="24"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,7 +68,7 @@
                                     <constraint firstAttribute="width" secondItem="PnS-k6-oLs" secondAttribute="height" multiplier="1:1" id="FdD-7t-dcs"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wu-BQ-Fg6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wu-BQ-Fg6">
                                 <rect key="frame" x="45" y="0.0" width="241" height="36"/>
                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -96,12 +83,13 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="kHj-rf-V1t" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="34" id="3fF-dk-gRn"/>
                 <constraint firstItem="UBQ-IW-4uF" firstAttribute="leading" secondItem="vKV-a5-kuN" secondAttribute="leading" id="4bh-oA-aWa"/>
                 <constraint firstAttribute="trailing" secondItem="uHR-AJ-rwB" secondAttribute="trailing" id="BEh-qw-hli"/>
                 <constraint firstAttribute="trailing" secondItem="UBQ-IW-4uF" secondAttribute="trailing" constant="24" id="E0c-R6-Uqm"/>
+                <constraint firstItem="kHj-rf-V1t" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="EaT-Re-oNh"/>
                 <constraint firstAttribute="bottom" secondItem="uHR-AJ-rwB" secondAttribute="bottom" id="Gd3-kf-xsv"/>
                 <constraint firstAttribute="bottom" secondItem="fEF-4K-CpH" secondAttribute="bottom" id="Ijq-gh-ldW"/>
-                <constraint firstItem="eaV-f9-vBH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="34" id="NxE-dS-rsu"/>
                 <constraint firstItem="fEF-4K-CpH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OBB-Uo-6dY"/>
                 <constraint firstItem="vKV-a5-kuN" firstAttribute="leading" secondItem="GUE-Q6-DyN" secondAttribute="leading" id="RGa-2s-Rau"/>
                 <constraint firstItem="uHR-AJ-rwB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="RN1-XW-25a"/>
@@ -112,7 +100,6 @@
                 <constraint firstItem="uHR-AJ-rwB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YHy-3K-inY"/>
                 <constraint firstItem="UBQ-IW-4uF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="gdM-qy-h71"/>
                 <constraint firstItem="UBQ-IW-4uF" firstAttribute="top" secondItem="vKV-a5-kuN" secondAttribute="bottom" constant="4" id="jca-Og-KH3"/>
-                <constraint firstItem="eaV-f9-vBH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="jgD-pH-ENf"/>
                 <constraint firstItem="vKV-a5-kuN" firstAttribute="trailing" secondItem="GUE-Q6-DyN" secondAttribute="trailing" id="nN8-nG-o2R"/>
                 <constraint firstAttribute="trailing" secondItem="fEF-4K-CpH" secondAttribute="trailing" id="xbJ-Wv-5kV"/>
             </constraints>
@@ -120,6 +107,7 @@
             <connections>
                 <outlet property="brandName" destination="4wu-BQ-Fg6" id="iqE-yR-8p9"/>
                 <outlet property="descriptionLabel" destination="UBQ-IW-4uF" id="nlC-KM-n26"/>
+                <outlet property="statusLabel" destination="kHj-rf-V1t" id="Q2V-1R-67X"/>
                 <outlet property="titleLabel" destination="vKV-a5-kuN" id="0nQ-ZG-Lvv"/>
                 <outlet property="userImage" destination="PnS-k6-oLs" id="QvV-wF-Uks"/>
                 <outlet property="videoImage" destination="uHR-AJ-rwB" id="Qvq-Bz-Npt"/>

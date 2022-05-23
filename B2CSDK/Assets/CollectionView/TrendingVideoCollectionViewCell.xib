@@ -28,6 +28,16 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummy1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-It-v8q">
                         <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
                     </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Live  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="dTm-hs-8pV">
+                        <rect key="frame" x="8" y="8" width="41" height="24"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.20784313730000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="CuB-qP-BZo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ukm-wp-JJC">
                         <rect key="frame" x="8" y="8" width="38" height="24"/>
                         <subviews>
@@ -55,7 +65,7 @@
                         <rect key="frame" x="46" y="8" width="36.5" height="24"/>
                         <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="2mV-Sz-6El">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye" translatesAutoresizingMaskIntoConstraints="NO" id="2mV-Sz-6El">
                         <rect key="frame" x="48" y="8" width="16" height="24"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -77,15 +87,17 @@
                 <constraint firstItem="Ukm-wp-JJC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="77k-E7-LHR"/>
                 <constraint firstItem="IU3-c0-Xlx" firstAttribute="top" secondItem="WBm-yK-H6w" secondAttribute="top" id="G70-Vv-9Pt"/>
                 <constraint firstItem="IU3-c0-Xlx" firstAttribute="trailing" secondItem="WBm-yK-H6w" secondAttribute="trailing" id="GJK-rv-fHd"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WBm-yK-H6w" secondAttribute="trailing" constant="20" id="GbE-CV-Ch5"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WBm-yK-H6w" secondAttribute="trailing" constant="18" id="GbE-CV-Ch5"/>
                 <constraint firstItem="IU3-c0-Xlx" firstAttribute="bottom" secondItem="WBm-yK-H6w" secondAttribute="bottom" id="KiB-xa-1sD"/>
                 <constraint firstItem="WBm-yK-H6w" firstAttribute="top" secondItem="2mV-Sz-6El" secondAttribute="top" id="X2Y-lb-HAj"/>
                 <constraint firstItem="WBm-yK-H6w" firstAttribute="leading" secondItem="2mV-Sz-6El" secondAttribute="trailing" constant="2" id="XEZ-Aj-IzE"/>
+                <constraint firstItem="dTm-hs-8pV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="a4H-Xh-d8H"/>
                 <constraint firstItem="zlU-It-v8q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="aCp-ov-yJ3"/>
                 <constraint firstItem="Ukm-wp-JJC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="c7H-XX-ZJr"/>
                 <constraint firstItem="IU3-c0-Xlx" firstAttribute="leading" secondItem="Ukm-wp-JJC" secondAttribute="trailing" id="i9P-NX-neq"/>
                 <constraint firstItem="2mV-Sz-6El" firstAttribute="top" secondItem="Ukm-wp-JJC" secondAttribute="top" id="j0p-ir-lfx"/>
                 <constraint firstAttribute="trailing" secondItem="zlU-It-v8q" secondAttribute="trailing" id="pei-e5-4tP"/>
+                <constraint firstItem="dTm-hs-8pV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="q4V-8T-bjr"/>
                 <constraint firstItem="2mV-Sz-6El" firstAttribute="leading" secondItem="Ukm-wp-JJC" secondAttribute="trailing" constant="2" id="s3i-yH-s4K"/>
                 <constraint firstItem="WBm-yK-H6w" firstAttribute="bottom" secondItem="2mV-Sz-6El" secondAttribute="bottom" id="t7O-6c-ytl"/>
                 <constraint firstAttribute="bottom" secondItem="zlU-It-v8q" secondAttribute="bottom" id="v2p-Qq-Kf2"/>
@@ -96,6 +108,7 @@
                 <outlet property="eyeImage" destination="2mV-Sz-6El" id="QgT-hX-qpA"/>
                 <outlet property="labelStatus" destination="SPv-Ui-YpW" id="ojd-YY-XXb"/>
                 <outlet property="labelViewCount" destination="WBm-yK-H6w" id="3VM-rR-FAP"/>
+                <outlet property="statusLabel" destination="dTm-hs-8pV" id="Y00-Zg-1eB"/>
                 <outlet property="statusView" destination="Ukm-wp-JJC" id="6GA-i6-ooN"/>
                 <outlet property="videoImage" destination="zlU-It-v8q" id="UYF-TC-odC"/>
             </connections>
@@ -104,6 +117,6 @@
     </objects>
     <resources>
         <image name="dummy1.png" width="115" height="141"/>
-        <image name="eye.png" width="14" height="14"/>
+        <image name="eye" width="18" height="18"/>
     </resources>
 </document>

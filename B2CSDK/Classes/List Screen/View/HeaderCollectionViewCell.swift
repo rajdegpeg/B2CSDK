@@ -12,6 +12,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var videoImage: UIImageView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var brandName: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
@@ -23,10 +24,12 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     func configureUI() {
         userImage.layer.cornerRadius = userImage.frame.size.height/2
         userImage.clipsToBounds = true
+        statusLabel.layer.cornerRadius = 5
     }
     
     func configureCell(data: RowData) {
         
+        statusLabel.text = data.status?.status
         titleLabel.text = data.name
         descriptionLabel.text = data.description
         

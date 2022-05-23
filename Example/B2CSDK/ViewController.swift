@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     
     @IBAction func getFrameworkRootVc() {
 
-        let manager = DegpegManager.init(key: "1234")
+        let manager = DegpegManager.init(key: "1234", userId: "6278c4556cb38a7a9c10df6e", userName: "Raj Kadam")
         if let vc = manager.getRootViewController() {
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)

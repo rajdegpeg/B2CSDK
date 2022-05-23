@@ -15,6 +15,17 @@ extension UIView {
         self.clipsToBounds = true
         self.layer.masksToBounds = true
     }
+    
+    func setupShadow(color: UIColor = .darkGray, radius: CGFloat = 5){
+        
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = CGSize.zero
+        self.layer.shadowRadius = radius
+        self.layer.shadowOpacity = 0.5
+        self.layer.masksToBounds = false
+        
+    }
+    
 }
 
 extension UIColor {

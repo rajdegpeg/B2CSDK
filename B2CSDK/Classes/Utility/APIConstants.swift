@@ -13,14 +13,14 @@ enum Channels {
     case dev
     case staging
     case live
-    var StreamToWebsiteID: (String, String) {
+    var StreamToWebsiteID: [String] {
         switch self {
         case .dev:
-            return ("61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770")
+            return ["61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770", "6267a4fb6177e06dae10f972"]
         case .staging:
-            return ("61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770")
+            return ["61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770", "6267a4fb6177e06dae10f972"]
         case .live:
-            return ("61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770")
+            return ["61d974e3cb6b7dc065bd0017", "6267d770f2700f724d939770", "6267a4fb6177e06dae10f972"]
         }
     }
 }
@@ -50,10 +50,14 @@ struct APIConstants {
     static let BaseUrl: BaseURL = .dev
     static let AccessToken = "accessToken"
     
-    static let ContentPublisher = "content-publishers/"
-    static let ContentProviders = "content-providers/"
+    static let ContentPublisher = "content-publishers"
+    static let ContentProviders = "content-providers"
     static let Channels = "channels/"
-    static let CategoriesList = "live-session-categories/"
+    static let CategoriesList = "live-session-categories"
     
+    static let LiveSessions = "live-sessions"
+    static let Product = "products"
     static let UserDetail = "users"
+    static let ViewCount = "views/count"
+    static let LiveSessionComments = "chat-messages"
 }

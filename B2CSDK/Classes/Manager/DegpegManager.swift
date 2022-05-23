@@ -12,9 +12,11 @@ public class DegpegManager {
     private var authKey: String
     private var authorized: Bool
     
-    public init(key: String) {
+    public init(key: String, userId: String, userName: String) {
         authKey = key
         authorized = Approved.keys.contains(key) ? true : false
+        B2CUserDefaults.setUserId(id: userId)
+        B2CUserDefaults.setUserName(name: userName)
     }
  
     public func getRootViewController() -> UINavigationController? {

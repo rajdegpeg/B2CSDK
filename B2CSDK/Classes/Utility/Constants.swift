@@ -33,9 +33,18 @@ struct CollectionCellID {
     static let BrandCellID = "BrandCollectionViewCell"
     static let UpcomingShowCellID = "UpcomingShowCollectionViewCell"
     static let CTACellID = "CTACollectionViewCell"
+    static let ProductCellID = "ProductCollectionViewCell"
 }
 
 
 struct ImageConstants {
     static let placeholderImage = "dummy2"
+}
+
+
+enum SessionStatusString: String {
+    case plan = "  Upcomming  "
+    case completed = "  Completed  "
+    case live = "  Live  "
+    case scheduled = "  Scheduled  "
 }

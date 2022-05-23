@@ -20,4 +20,5 @@ protocol ListViewControllerProtocol: AnyObject {
 protocol ListViewModelProtocol: AnyObject {
     var viewController: ListViewControllerProtocol? { get set }
     func getContentPublishers(for publisherId: String)
+    func fetchAllCategories()
 }

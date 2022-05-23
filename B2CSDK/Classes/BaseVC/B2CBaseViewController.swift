@@ -20,7 +20,6 @@ class B2CBaseViewController: UIViewController {
     }
 
     deinit {
-        Logs.print("Deinit Viewcontrollers: ", self)
         removeObserver()
     }
     
