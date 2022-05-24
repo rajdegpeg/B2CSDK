@@ -9,9 +9,11 @@ import Foundation
 import SocketIO
 import ObjectMapper
 
-/*protocol SocketDelegate: AnyObject {
+protocol SocketDelegate: AnyObject {
     func socketConnected()
     func receivedNewChatMessage(chat: ChatMessage)
+    func updateViewCount(views: ViewCountModel)
+    func updateLike(like: ViewCountModel)
 }
 
 extension SocketDelegate {
@@ -28,26 +30,28 @@ class Socket_IOManager {
     
     //MARK:- Socket connect
     func connect() {
-        if let userDetails = B2CUserDefault.getCurrentUserDetails(),
-           let contentProviderId = userDetails.contentProviderId {
+        if let influencerID = B2CUserDefaults.getInfluencerID() {
             disconnectSocket()
-            socketManager = SocketManager(socketURL: URL(string: generateURL(to: userDetails))!, config: [.log(false), .compress, .forcePolling(false)])
-            socketManager?.setConfigs([.connectParams(["contentProviderId": contentProviderId]), .forcePolling(false)])
-            socket = socketManager!.socket(forNamespace: (userDetails.userRole == .contentProvider) ? "/content-provider" : "/influencer")
+            socketManager = SocketManager(socketURL: URL(string: generateURL())!, config: [.log(false), .compress, .forcePolling(false)])
+            socketManager?.setConfigs([.connectParams(getConnectionParams(for: influencerID)), .forcePolling(false)])
+            socket = socketManager!.socket(forNamespace: "/influencer")
+            //socket = socketManager!.socket(forNamespace: (userDetails.userRole == .contentProvider) ? "/content-provider" : "/influencer")
             socketListeners(socket: socket!)
             socket?.connect()
         }
     }
     
-    func generateURL(to user: UserDetails) -> String {
+    func getConnectionParams(for influencerID: String) -> [String: Any] {
+        //        if (user.userRole == .contentProvider) {
+        //            return ["contentProviderId" : user.contentProviderId ?? ""]
+        //        }
+        return ["influencerId": influencerID]
+    }
+    
+    func generateURL() -> String {
         
-        var base_url = ServiceURL.baseUrl.socketURL
+        let base_url = APIConstants.BaseUrl.socketURL + "influencer"
         
-        if user.userRole == .contentProvider {
-            base_url = "\(base_url)\(UserRole.contentProvider.rawValue)"
-        } else {
-            base_url = "\(base_url)\(UserRole.influencer.rawValue)"
-        }
         return base_url
     }
     
@@ -106,14 +110,24 @@ class Socket_IOManager {
             }
         }
         
-        socket.on(Events.liveEmoji.listnerName) { data, ack in
+        socket.on(Events.liveEmoji.listnerName) { [weak self] data, ack in
+            guard let self = self else { return }
             Logs.print("Live emoji received")
             Logs.print(data)
+            if let response = self.getResponseData(data: data),
+               let like = Mapper<ViewCountModel>().map(JSON: response) {
+                self.liveStreamViewControllerDelegate?.updateLike(like: like)
+            }
         }
         
-        socket.on(Events.viewCount.listnerName) { data, ack in
-            Logs.print("view count received")
+        socket.on(Events.viewCount.listnerName) { [weak self] data, ack in
+            guard let self = self else { return }
+            Logs.print("Live view count received")
             Logs.print(data)
+            if let response = self.getResponseData(data: data),
+               let views = Mapper<ViewCountModel>().map(JSON: response) {
+                self.liveStreamViewControllerDelegate?.updateViewCount(views: views)
+            }
         }
         
     }
@@ -151,9 +165,9 @@ class Socket_IOManager {
             case .chatMessage:
                 return "chat_message"
             case .liveEmoji:
-                return "like_count_updated"
+                return "update_like"
             case .viewCount:
-                return "update_view_count"
+                return "update_view"
             case .joinRoom:
                 return "join"
             case .leaveRoom:
@@ -167,9 +181,9 @@ class Socket_IOManager {
             case .chatMessage:
                 return "chat_message"
             case .liveEmoji:
-                return "like_count_updated"
+                return "update_like"
             case .viewCount:
-                return "update_view_count"
+                return "update_view"
             case .joinRoom:
                 return "join"
             case .leaveRoom:
@@ -188,4 +202,5 @@ class Socket_IOManager {
         }
     }
     
-}*/
+}
+

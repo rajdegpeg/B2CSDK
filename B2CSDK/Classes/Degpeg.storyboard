@@ -7,7 +7,6 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -210,7 +209,7 @@
                                     <constraint firstItem="X2f-pS-nH7" firstAttribute="leading" secondItem="FIi-JY-OHf" secondAttribute="trailing" id="yyV-JJ-Kga"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dqx-La-cGQ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dqx-La-cGQ">
                                 <rect key="frame" x="14" y="486" width="386" height="204"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -226,16 +225,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="34" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Rs6-uA-ihq">
-                                        <rect key="frame" x="34" y="9" width="180" height="72"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="RiY-5L-2of">
-                                            <rect key="frame" x="0.0" y="0.0" width="180" height="72"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="hGD-LG-Z6H" id="ymB-eb-E3u"/>
                                     <outlet property="delegate" destination="hGD-LG-Z6H" id="Xti-P4-cti"/>
@@ -281,17 +271,43 @@
                                             <constraint firstAttribute="width" constant="132" id="RvM-Da-deR"/>
                                         </constraints>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gn2-yk-pzr" customClass="GrowingTextView" customModule="GrowingTextView">
+                                        <rect key="frame" x="24" y="8" width="223" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3q-O4-BDH">
+                                        <rect key="frame" x="207" y="8" width="40" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="gab-A7-3In"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.94509803920000002" green="0.20784313730000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="paperplane.fill" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendMessageAction:" destination="hGD-LG-Z6H" eventType="touchUpInside" id="8II-z2-f2t"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="C5I-oa-Ll3" secondAttribute="bottom" constant="8" id="1eP-Ph-snA"/>
+                                    <constraint firstItem="X3q-O4-BDH" firstAttribute="top" secondItem="gn2-yk-pzr" secondAttribute="top" id="5q2-s3-LPm"/>
                                     <constraint firstAttribute="trailing" secondItem="Ccg-Cf-M8a" secondAttribute="trailing" constant="15" id="DmE-Xz-bex"/>
+                                    <constraint firstItem="gn2-yk-pzr" firstAttribute="leading" secondItem="hwB-hI-jW2" secondAttribute="leading" constant="24" id="JyT-ge-aki"/>
+                                    <constraint firstItem="X3q-O4-BDH" firstAttribute="bottom" secondItem="gn2-yk-pzr" secondAttribute="bottom" id="KyL-Ic-UzS"/>
                                     <constraint firstItem="Ccg-Cf-M8a" firstAttribute="top" secondItem="hwB-hI-jW2" secondAttribute="top" constant="8" id="SWa-1W-epi"/>
+                                    <constraint firstItem="gn2-yk-pzr" firstAttribute="top" secondItem="hwB-hI-jW2" secondAttribute="top" constant="8" id="Uwv-GR-3FT"/>
+                                    <constraint firstAttribute="bottom" secondItem="gn2-yk-pzr" secondAttribute="bottom" constant="8" id="Xfy-wh-576"/>
                                     <constraint firstAttribute="height" constant="50" id="YU8-cF-k9d"/>
+                                    <constraint firstItem="Ccg-Cf-M8a" firstAttribute="leading" secondItem="gn2-yk-pzr" secondAttribute="trailing" constant="20" id="bmi-eb-0pO"/>
                                     <constraint firstItem="Ccg-Cf-M8a" firstAttribute="leading" secondItem="C5I-oa-Ll3" secondAttribute="trailing" constant="20" id="bqH-MB-eBc"/>
                                     <constraint firstAttribute="bottom" secondItem="Ccg-Cf-M8a" secondAttribute="bottom" constant="8" id="bs9-Xw-Mjo"/>
                                     <constraint firstItem="C5I-oa-Ll3" firstAttribute="leading" secondItem="hwB-hI-jW2" secondAttribute="leading" constant="24" id="f5L-jJ-3CL"/>
                                     <constraint firstItem="C5I-oa-Ll3" firstAttribute="top" secondItem="hwB-hI-jW2" secondAttribute="top" constant="8" id="lt6-Kz-QJY"/>
+                                    <constraint firstItem="X3q-O4-BDH" firstAttribute="trailing" secondItem="gn2-yk-pzr" secondAttribute="trailing" id="vUS-r4-33q"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -322,12 +338,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="P5M-Br-0g0"/>
                     <connections>
+                        <outlet property="btnSend" destination="X3q-O4-BDH" id="m2i-Ow-jVb"/>
                         <outlet property="collectionView" destination="4G5-OD-nC7" id="YwF-yd-0Is"/>
+                        <outlet property="collectionViewHeightConstraint" destination="6CM-Ys-b33" id="ys7-Y4-zdU"/>
                         <outlet property="commentTextField" destination="C5I-oa-Ll3" id="nIf-VN-2cO"/>
                         <outlet property="commentView" destination="hwB-hI-jW2" id="YYi-P3-WuB"/>
                         <outlet property="countView" destination="X2f-pS-nH7" id="Mrk-OY-5RI"/>
                         <outlet property="labelStatus" destination="riC-IP-cM1" id="cew-ek-sD9"/>
                         <outlet property="labelViewCount" destination="1Xc-jE-lHr" id="xby-oY-GUo"/>
+                        <outlet property="messageInputTextView" destination="gn2-yk-pzr" id="JGA-K5-en2"/>
                         <outlet property="messageTableView" destination="dqx-La-cGQ" id="zfr-Hx-HMO"/>
                         <outlet property="name" destination="aG4-zD-vQz" id="m1s-GP-5if"/>
                         <outlet property="profileImage" destination="Tbd-ho-DA0" id="x0j-2o-w9b"/>
@@ -345,6 +364,7 @@
         <image name="eye" width="18" height="18"/>
         <image name="like_icon.png" width="32" height="32"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
+        <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <image name="share_icon.png" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

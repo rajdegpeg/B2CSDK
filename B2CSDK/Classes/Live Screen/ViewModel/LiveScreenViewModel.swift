@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import ObjectMapper
 final class LiveScreenViewModel: LiveScreenViewModelProtocol {
     var viewController: LiveScreenViewControllerProtocol?
     
@@ -58,19 +58,19 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
     }
    
     
-    // MARK: - Get Comments
-    func getComments(for liveSessionId: String) {
+    // MARK: - Get All Messages
+    func getMessages(for liveSessionId: String) {
         if NetworkManager.isConnectedToInternet {
             var filter = CommentsFilter.init()
             let param = filter.createFilter(id: liveSessionId)
             
             UIUtils.showHUD(view: viewController?.currentView)
-            LiveScreenService().getAllComments(param: param) { [weak self] comments, error in
+            LiveScreenService().getAllMessages(param: param) { [weak self] messages, error in
                 guard let self = self else { return }
                 UIUtils.hideHUD(view: self.viewController?.currentView)
-                if let commentsArray = comments, commentsArray.count > 0 {
-                    print("Comments", commentsArray)
-                    self.viewController?.updateCommentsArray(comments: commentsArray)
+                if let messagesArray = messages, messagesArray.count > 0 {
+                    print("Comments", messagesArray)
+                    self.viewController?.updateCommentsArray(comments: messagesArray)
                 } else {
                     //self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
                 }
@@ -81,17 +81,21 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
 
     }
     
-    // MARK: - Post comment
-    func postComment(for liveSessionId: String, comment: String) {
+    // MARK: - Post Message
+    func sendMessage(for liveSessionId: String, comment: String) {
         if NetworkManager.isConnectedToInternet {
             let param = createSendMessageRequest(sessionId: liveSessionId, message: comment)
             
             UIUtils.showHUD(view: viewController?.currentView)
-            LiveScreenService().postComment(param: param) { [weak self] result, error in
+            LiveScreenService().sendMessage(param: param) { [weak self] result, error in
                 guard let self = self else { return }
                 UIUtils.hideHUD(view: self.viewController?.currentView)
                 if let result = result{
-                    print("view Count", result)
+                    print("Message Sent successfully", result)
+                    self.sendMessageThroughSocket(request: param)
+                    if let message = self.getChatMessageObject(req: param) {
+                        self.viewController?.appendNewMessage(message: message)
+                    }
                 } else {
                     
                     self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
@@ -101,6 +105,14 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
             self.viewController?.showError(errorString: AlertDetails.NoInternet)
         }
 
+    }
+    
+    func getChatMessageObject(req: [String:Any]) -> ChatMessage? {
+       if let chatMessage = Mapper<ChatMessage>().map(JSON: req) {
+         return chatMessage
+       }else {
+           return nil
+       }
     }
     
     func createSendMessageRequest(sessionId: String, message: String) -> [String: Any]{
@@ -113,10 +125,11 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
                      “liveSessionId”: “session-id”
                        }
          */
+        //"username": B2CUserDefaults.getUserName(),
         let date = Date.init()
         let currentTime = date.serverRequestDateString()
-        let req = ["time_stamp": currentTime, "username": B2CUserDefaults.getUserName(), "userId": B2CUserDefaults.getUserId(), "message": message, "liveSessionId": sessionId]
-        return ["data": req]
+        let req = ["time_stamp": currentTime, "userId": B2CUserDefaults.getUserId(), "message": message, "liveSessionId": sessionId]
+        return req as [String : Any] //["data": req]
     }
     
     // MARK: - Get ViewCount
@@ -160,4 +173,21 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
     
     
     
+}
+
+
+// MARK: - Socket
+
+extension LiveScreenViewModel {
+    
+    func sendMessageThroughSocket(request: [String: Any]) {
+        Socket_IOManager.shared.socketEmit(emitName: Socket_IOManager.Events.chatMessage.emitterName, params: request)
+    }
+    func joinRoom(sessionId: String) {
+        Socket_IOManager.shared.socketEmit(emitName: Socket_IOManager.Events.joinRoom.emitterName, params: ["room": sessionId])
+    }
+    
+    func leaveRoom(sessionId: String) {
+        Socket_IOManager.shared.socketEmit(emitName: Socket_IOManager.Events.leaveRoom.emitterName, params: ["room": sessionId])
+    }
 }

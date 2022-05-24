@@ -7,9 +7,26 @@
 
 import Foundation
 import ObjectMapper
-// MARK: User Model
 
-struct CommentsModel: Mappable {
+struct ChatMessage1: Mappable {
+    
+    var message: String?
+    var time_stamp: String?
+    var userId: String?
+    
+    init() {}
+    
+    init?(map: Map) { }
+    
+    mutating func mapping(map: Map) {
+        message <- map["message"]
+        time_stamp <- map["time_stamp"]
+        userId <- map["userId"]
+    }
+    
+}
+
+struct ChatMessage: Mappable {
     
     var message: String?
     var userName: String?

@@ -70,6 +70,7 @@ struct ContentProviderDetailsModel: Mappable {
     var sessionPassCode: String?
     var products: [String]?
     var liveSessionCategory: CategoryData?
+    var webVideoUrl: String?
     
     init?(map: Map) {}
     mutating func mapping(map: Map) {
@@ -90,6 +91,7 @@ struct ContentProviderDetailsModel: Mappable {
         sessionPassCode <- map["session_pass_code"]
         liveSessionCategory <- map["liveSessionCategory"]
         products <- map["products"]
+        webVideoUrl <- map["web_video_url"]
     }
     
     
@@ -164,6 +166,7 @@ enum HomeSections {
 }
 struct RowData {
     var id: String?
+    var products: [String]?
     var sessionDate: Date
     var videoUrl: String?
     var status: SessionStatus?

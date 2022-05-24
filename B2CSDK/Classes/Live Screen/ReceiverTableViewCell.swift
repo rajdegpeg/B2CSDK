@@ -21,8 +21,8 @@ class ReceiverTableViewCell: UITableViewCell {
         profileImage.layer.borderColor = UIColor.receiverProfileBorder.cgColor
     }
     
-    func setupCellData(comment: CommentsModel) {
-        messageLabel.text = comment.message
+    func setupCellData(message: ChatMessage) {
+        messageLabel.text = message.message
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

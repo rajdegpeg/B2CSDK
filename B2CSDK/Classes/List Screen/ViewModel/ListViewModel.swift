@@ -109,7 +109,14 @@ final class ListViewModel: ListViewModelProtocol {
                     guard let self = self else { return }
                     if let channel = channel {
                         if channel.isWebToStream {
-                            let oneRecord = RowData.init(id: video.id, sessionDate: video.dateTime?.stringToDate() ?? Date(), videoUrl: video.videoUrl, status: video.status, imageUrl: video.bannerUrl, sessionDataId: video.sessionDataId, contentProviderId: video.contentProviderId, liveSessionCategory: video.liveSessionCategory, streamKey: video.streamKey, sessionType: video.sessionType, sessionPassCode: video.sessionPassCode, name: video.name, description: video.description, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil)
+                            var videoUrl = ""
+                            if video.videoUrl == nil {
+                                videoUrl = video.webVideoUrl ?? ""
+                            }else {
+                                videoUrl = video.videoUrl ?? ""
+                            }
+                            
+                            let oneRecord = RowData.init(id: video.id, products: video.products, sessionDate: video.dateTime?.stringToDate() ?? Date(), videoUrl: videoUrl, status: video.status, imageUrl: video.bannerUrl, sessionDataId: video.sessionDataId, contentProviderId: video.contentProviderId, liveSessionCategory: video.liveSessionCategory, streamKey: video.streamKey, sessionType: video.sessionType, sessionPassCode: video.sessionPassCode, name: video.name, description: video.description, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil)
                             rowData.append(oneRecord)
                             
                         }
@@ -157,20 +164,30 @@ final class ListViewModel: ListViewModelProtocol {
                 
             }
             
+            var homeDataArray = [ListSectionData]()
+            
             let liveData = ListSectionData.init(sectionName: .live, sectionData: topSectionData)
             
+            homeDataArray.append(liveData)
             let trendindData = ListSectionData.init(sectionName: .trending, sectionData: rowData.sorted(by: {$0.sessionDate > $1.sessionDate}))
             
+            homeDataArray.append(trendindData)
             var categoryRowDta = [RowData]()
             self.categories.forEach { category in
                 categoryRowDta.append(RowData.init(id: category.id, sessionDate: Date(), videoUrl: nil, status: nil, imageUrl: category.categoryImageUrl, sessionDataId: nil, contentProviderId: nil, liveSessionCategory: nil, streamKey: nil, sessionType: nil, sessionPassCode: nil, name: category.name, description: nil, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil))
             }
             let categoriesData = ListSectionData.init(sectionName: .category, sectionData: categoryRowDta)
+            homeDataArray.append(categoriesData)
             let upcommingSessions = plannedSessions+scheduledSessions
+            if upcommingSessions.count > 0 {
+                let upcomingData = ListSectionData.init(sectionName: .upcoming, sectionData: upcommingSessions.sorted(by: {$0.sessionDate>$1.sessionDate}))
+                homeDataArray.append(upcomingData)
+            }
             
-            let upcomingData = ListSectionData.init(sectionName: .upcoming, sectionData: upcommingSessions.sorted(by: {$0.sessionDate>$1.sessionDate}))
             let brandData = ListSectionData.init(sectionName: .brand, sectionData: nil)
-            self.viewController?.updateSectionData(dataArray: [liveData, trendindData, categoriesData, upcomingData, brandData])
+            homeDataArray.append(brandData)
+            self.viewController?.updateSectionData(dataArray: homeDataArray)
+            //[liveData, trendindData, categoriesData, upcomingData, brandData]
             }
         
     }

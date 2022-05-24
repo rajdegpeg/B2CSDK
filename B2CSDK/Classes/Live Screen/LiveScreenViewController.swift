@@ -26,12 +26,15 @@ class LiveScreenViewController: B2CBaseViewController {
     @IBOutlet weak var commentView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var messageInputTextView: GrowingTextView!
     
+    var PRODUCT_CELL_HEIGHT: CGFloat = 90
     var screenData: RowData?
-    var commentsArray = [CommentsModel]()
+    var messageArray = [ChatMessage]()
     var productList: [Product] = [Product]()
+    var fromCTA = false
     @IBOutlet weak var commentTextField: TextFieldWithPadding!{
         didSet {
             let redPlaceholderText = NSAttributedString(string: "Post a Comment",
@@ -47,6 +50,7 @@ class LiveScreenViewController: B2CBaseViewController {
         setupUI()
         registerCells()
         configureVM()
+        fromCTA = false
    }
    
     func configureVM(){
@@ -59,9 +63,15 @@ class LiveScreenViewController: B2CBaseViewController {
         }
         
         if let sessionId = screenData?.id {
-            viewModel?.getComments(for: sessionId)
-            viewModel?.getSessionDetails(liveSessionId: sessionId)
+            viewModel?.getMessages(for: sessionId)
+            //viewModel?.getSessionDetails(liveSessionId: sessionId)
             viewModel?.getViewCount(for: sessionId)
+        }
+        if let products = screenData?.products {
+            viewModel?.fetchAllProducts(products: products)
+            collectionViewHeightConstraint.constant = PRODUCT_CELL_HEIGHT
+        }else{
+            collectionViewHeightConstraint.constant = 0
         }
         
         
@@ -80,11 +90,39 @@ class LiveScreenViewController: B2CBaseViewController {
         player?.seek(to: CMTimeMakeWithSeconds(Float64(0), 1) )
         player?.pause()
         removeObserver()
+        viewModel?.leaveRoom(sessionId: screenData?.id ?? "")
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func sendMessageAction(_ sender: UIButton) {
+        viewModel?.sendMessage(for: screenData?.id ?? "", comment: messageInputTextView.text ?? "")
+        messageInputTextView.text = ""
+        btnSend.isHidden = true
+        btnSend.isUserInteractionEnabled = false
+    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveBackgroundNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+
+    }
     
+    @objc func didReceiveForegroundNotification() {
+       player?.play()
+        
+    }
+    
+    @objc func didReceiveBackgroundNotification() {
+       player?.pause()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        player?.pause()
+    }
     /*
      // MARK: - Navigation
      
@@ -100,13 +138,22 @@ class LiveScreenViewController: B2CBaseViewController {
 extension LiveScreenViewController {
     
     func setupUI() {
-        //setupInputTextView()
+        setupInputTextView()
         configureUI()
+        setUpSocketIO()
         hideNavigationBar()
         playVideo()
         addObserver()
+        
     }
-   /* private func setupInputTextView(){
+    
+    /// Method to setup socket connection
+    func setUpSocketIO() {
+        Socket_IOManager.shared.connect()
+        Socket_IOManager.shared.liveStreamViewControllerDelegate = self
+    }
+    
+   private func setupInputTextView(){
         //automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
             messageTableView.contentInsetAdjustmentBehavior = .never
@@ -120,15 +167,18 @@ extension LiveScreenViewController {
         messageInputTextView.placeholder = "Post a comment"
         messageInputTextView.placeholderColor = UIColor(white: 10.8, alpha: 1.0)
         messageInputTextView.minHeight = 40.0
-        messageInputTextView.maxHeight = 250.0
+        messageInputTextView.maxHeight = 200.0
         messageInputTextView.backgroundColor = UIColor.clear
-        messageInputTextView.layer.cornerRadius = 4.0
-    }*/
+        messageInputTextView.layer.cornerRadius = 10.0
+       messageInputTextView.layer.borderWidth = 1
+       messageInputTextView.layer.borderColor = UIColor.white.cgColor
+       messageInputTextView.textColor = .white
+    }
     
     func configureUI(){
         statusView.customRoundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 5)
         countView.customRoundCorners(corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner], radius: 5)
-        
+        commentTextField.isHidden = true
         commentTextField.layer.cornerRadius = 10
         commentTextField.layer.borderWidth = 1
         commentTextField.layer.borderColor = UIColor.white.cgColor
@@ -194,122 +244,41 @@ extension LiveScreenViewController: UICollectionViewDelegate, UICollectionViewDa
 // MARK: - TableView Delegate and Datasource
 extension LiveScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentsArray.count
+        return messageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.row == 3 {
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.SenderCell, for: indexPath) as? SenderTableViewCell {
-//                cell.configureUI()
-//                cell.messageLabel.text = "Cupon Code ZH100 😆"
-//                return cell
-//            }else {
-//                return UITableViewCell()
-//            }
-//        }
-        if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.ReceiverCell, for: indexPath) as? ReceiverTableViewCell {
-            cell.configureUI()
-            cell.setupCellData(comment: commentsArray[indexPath.row])
-            return cell
+
+        let message = messageArray[indexPath.row]
+        
+        if message.userId == B2CUserDefaults.getUserId() {
+            // Sender message cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.SenderCell, for: indexPath) as? SenderTableViewCell {
+                cell.configureUI()
+                cell.setupCellData(message: messageArray[indexPath.row])
+                return cell
+            }else {
+                return UITableViewCell()
+            }
         }else {
-            return UITableViewCell()
-        }
-        
-    }
-    
-    
-}
-import Kingfisher
-// MARK: - LiveScreenViewControllerProtocol
-extension LiveScreenViewController: LiveScreenViewControllerProtocol {
-    
-    func updateProduct(product: Product) {
-        if productList.count == 0 {
-            productList.append(product)
-        } else {
-            productList = [product]
-        }
-        collectionView.reloadData()
-    }
-    
-    
-    func updateViewCount(viewCount: ViewCountModel)
-    {
-        if let count = viewCount.count {
-            self.labelViewCount.text = "\(count.formatUsingAbbrevation())  "
-        }
-        
-    }
-    func updateCommentsArray(comments: [CommentsModel]) {
-        commentsArray = comments
-//        if commentsArray.count =
-        messageTableView.reloadData()
-    }
-    
-   
-    func updateUserData(user: UserDetails) {
-        
-        name.text = user.firstName
-        if let imageStr = user.displayPicture {
-            setProfileImage(imageString: imageStr)
-        }else{
-            profileImage.image = UIImage(named: ImageConstants.placeholderImage)
-        }
-    }
-    
-    func showError(errorString: String) {
-        showAlertView(title: AlertTitles.Error, message: errorString)
-    }
-    
-    func setProfileImage(imageString: String) {
-        let url = URL(string: imageString)
-        let processor = DownsamplingImageProcessor(size: profileImage.bounds.size)
-        |> RoundCornerImageProcessor(cornerRadius: profileImage.frame.size.height/2)
-        profileImage.kf.indicatorType = .activity
-        profileImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: ImageConstants.placeholderImage),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
-        {
-            result in
-            switch result {
-            case .success(let value):
-                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
+            // Receiver Cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.ReceiverCell, for: indexPath) as? ReceiverTableViewCell {
+                cell.configureUI()
+                cell.setupCellData(message: messageArray[indexPath.row])
+                return cell
+            }else {
+                return UITableViewCell()
             }
         }
+        
+        
     }
+    
     
 }
 
-extension LiveScreenViewController: LiveScreenActionProtocols {
-    func productBuyAction(product: Product?) {
-        
-        if let product = product, let urlString = product.purchase_link, let productUrl = URL.init(string: urlString) {
-            openSocialLinks(url: productUrl)
-        }
-    }
-    
-    func openSocialLinks(url: URL){
-        
-        if UIApplication.shared.canOpenURL(url)
-        {
-            UIApplication.shared.open(url, options: [:]) { (flag) in
-                
-            }
-        }
-    }
-    
-}
 
-/*
 
 // MARK: Growing TextView
 extension LiveScreenViewController:  GrowingTextViewDelegate {
@@ -345,6 +314,7 @@ extension LiveScreenViewController:  GrowingTextViewDelegate {
             }else {
                 
                 if text.count > 0 {
+                    btnSend.isUserInteractionEnabled = true
                     btnSend.isHidden = false
                     return true
                 }
@@ -367,6 +337,7 @@ extension LiveScreenViewController:  GrowingTextViewDelegate {
             }
             
         }
+        btnSend.isUserInteractionEnabled = true
         btnSend.isHidden = false
         return true
     }
@@ -374,13 +345,12 @@ extension LiveScreenViewController:  GrowingTextViewDelegate {
     
     
 }
-*/
 
 extension LiveScreenViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        messageInputTextView.resignFirstResponder()
+        commentTextField.resignFirstResponder()
         return true
     }
     

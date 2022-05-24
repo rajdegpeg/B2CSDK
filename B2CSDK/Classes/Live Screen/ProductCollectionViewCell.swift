@@ -29,7 +29,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func productBuyAction() {
-        delegate?.productBuyAction(product: product)
+        delegate?.buyProductAction(product: product)
     }
     func configureCell(data: Product) {
         self.product = data

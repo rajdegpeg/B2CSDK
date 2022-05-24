@@ -30,7 +30,7 @@ enum BaseURL {
     case dev
     case staging
     case live
-    
+    case test
     var apiURL: String {
         switch self {
         case .dev:
@@ -39,15 +39,31 @@ enum BaseURL {
             return "https://staging.api.degpeg.com/"
         case .live:
             return "https://prod.api.degpeg.com/"
+        case .test:
+            return "https://test.api.degpeg.com/"
         }
     }
+    
+    var socketURL: String {
+           switch self {
+           case .dev:
+               return "https://dev.interactionserver.degpeg.com:9014/"
+           case .staging:
+               return "https://prod.interactionserver.degpeg.com:9012/"
+           case .live:
+               return "https://prod.interactionserver.degpeg.com:9012/"
+           case .test:
+               return "https://test.interactionserver.degpeg.com:9015/"
+           }
+       }
+
 }
 let BASE_ACCESS_TOKEN = ""
 let CHANNELS: Channels = .dev
 struct APIConstants {
     
     
-    static let BaseUrl: BaseURL = .dev
+    static let BaseUrl: BaseURL = .test
     static let AccessToken = "accessToken"
     
     static let ContentPublisher = "content-publishers"

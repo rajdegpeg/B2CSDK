@@ -12,7 +12,8 @@ struct UserDefaultsKeys {
     static let access_token = "B2CSDK_AccessToken"
     static let user_id = "B2CSDK_UserID"
     static let user_name = "B2CSDK_UserName"
-    
+    static let influencerID = "B2CSDK_influencerId"
+    static let contentProviderID = "B2CSDK_contentProviderId"
 }
 
 
@@ -28,6 +29,18 @@ class B2CUserDefaults: NSObject {
     
     static func getAccessToken() -> String? {
         return UserDefaults.standard.string(forKey: UserDefaultsKeys.access_token)
+    }
+    
+    // MARK: Influencer Id
+    static func setInfluencerID(id: String?) {
+        if let influencerID = id, !influencerID.isEmpty {
+            UserDefaults.standard.set(influencerID, forKey: UserDefaultsKeys.influencerID)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    static func getInfluencerID() -> String? {
+        return UserDefaults.standard.string(forKey: UserDefaultsKeys.influencerID)
     }
     
     

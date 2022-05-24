@@ -12,6 +12,7 @@ class TrendingVideosTableViewCell: UITableViewCell {
     @IBOutlet weak var trendingButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     var cellDataArray: [RowData] = [RowData]()
+    var delegate: LiveScreenRedirectionProtocol?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -57,6 +58,8 @@ extension TrendingVideosTableViewCell: UICollectionViewDelegate, UICollectionVie
         cell.configureCell(data: cellDataArray[indexPath.row])
         return cell
     }
-    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.redirectToLiveScreen(data: cellDataArray[indexPath.row])
+    }
     
 }

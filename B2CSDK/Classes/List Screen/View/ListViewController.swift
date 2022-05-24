@@ -73,7 +73,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
          if homeDataArray[indexPath.section].sectionName == .live {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderSectionTableViewCell", for: indexPath) as? HeaderSectionTableViewCell {
+             if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.ListHeaderSection, for: indexPath) as? HeaderSectionTableViewCell {
                 cell.delegate = self
                 cell.registerCell(bundle: cellBundle)
                 if homeDataArray.count > 0 {
@@ -86,9 +86,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         }else if homeDataArray[indexPath.section].sectionName == .trending {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.TrendingCellID, for: indexPath) as! TrendingVideosTableViewCell
             cell.registerCell(bundle: cellBundle)
-            if homeDataArray.count > 1 {
-                cell.configureCell(data: homeDataArray[indexPath.section].sectionData)
-            }
+            cell.delegate = self
+            cell.configureCell(data: homeDataArray[indexPath.section].sectionData)
+            
             return cell
         }else if homeDataArray[indexPath.section].sectionName == .category {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCellID.CategoryCellID, for: indexPath) as! CategoryTableViewCell

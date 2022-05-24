@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol LiveScreenActionProtocols {
-    func productBuyAction(product: Product?)
+    func buyProductAction(product: Product?)
 }
 
 
@@ -18,7 +18,8 @@ protocol LiveScreenViewControllerProtocol: AnyObject {
     var viewModel: LiveScreenViewModelProtocol? { get set }
     var currentView: UIView? {get set}
     func updateUserData(user: UserDetails)
-    func updateCommentsArray(comments: [CommentsModel])
+    func updateCommentsArray(comments: [ChatMessage])
+    func appendNewMessage(message: ChatMessage)
     func updateViewCount(viewCount: ViewCountModel)
     func updateProduct(product: Product)
     func showError(errorString: String)
@@ -28,8 +29,12 @@ protocol LiveScreenViewControllerProtocol: AnyObject {
 protocol LiveScreenViewModelProtocol: AnyObject {
     var viewController: LiveScreenViewControllerProtocol? { get set }
     func getUserData(for providerId: String)
-    func getComments(for liveSessionId: String)
+    func getMessages(for liveSessionId: String)
     func getViewCount(for liveSessionId: String)
-    func postComment(for liveSessionId: String, comment: String)
-    func getSessionDetails(liveSessionId: String)
+    func sendMessage(for liveSessionId: String, comment: String)
+    //func getSessionDetails(liveSessionId: String)
+    func fetchAllProducts(products: [String])
+    // MARK: - Socket
+    func joinRoom(sessionId: String)
+    func leaveRoom(sessionId: String)
 }
