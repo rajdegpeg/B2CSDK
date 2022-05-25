@@ -63,7 +63,7 @@ let CHANNELS: Channels = .dev
 struct APIConstants {
     
     
-    static let BaseUrl: BaseURL = .test
+    static let BaseUrl: BaseURL = .dev
     static let AccessToken = "accessToken"
     
     static let ContentPublisher = "content-publishers"

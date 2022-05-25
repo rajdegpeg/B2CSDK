@@ -30,27 +30,26 @@ class Socket_IOManager {
     
     //MARK:- Socket connect
     func connect() {
-        if let influencerID = B2CUserDefaults.getInfluencerID() {
             disconnectSocket()
             socketManager = SocketManager(socketURL: URL(string: generateURL())!, config: [.log(false), .compress, .forcePolling(false)])
-            socketManager?.setConfigs([.connectParams(getConnectionParams(for: influencerID)), .forcePolling(false)])
-            socket = socketManager!.socket(forNamespace: "/influencer")
+            socketManager?.setConfigs([.connectParams(getConnectionParams(for: DEFAULT_ContentPublisherId)), .forcePolling(false)])
+            socket = socketManager!.socket(forNamespace: "/content-publisher")
             //socket = socketManager!.socket(forNamespace: (userDetails.userRole == .contentProvider) ? "/content-provider" : "/influencer")
             socketListeners(socket: socket!)
             socket?.connect()
-        }
+        
     }
     
-    func getConnectionParams(for influencerID: String) -> [String: Any] {
+    func getConnectionParams(for id: String) -> [String: Any] {
         //        if (user.userRole == .contentProvider) {
         //            return ["contentProviderId" : user.contentProviderId ?? ""]
         //        }
-        return ["influencerId": influencerID]
+        return ["contentPublisherId": id]//["influencerId": influencerID]
     }
     
     func generateURL() -> String {
         
-        let base_url = APIConstants.BaseUrl.socketURL + "influencer"
+        let base_url = APIConstants.BaseUrl.socketURL + "content-publisher" //"influencer"//
         
         return base_url
     }

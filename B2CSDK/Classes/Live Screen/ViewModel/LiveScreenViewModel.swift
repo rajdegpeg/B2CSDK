@@ -86,10 +86,10 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
         if NetworkManager.isConnectedToInternet {
             let param = createSendMessageRequest(sessionId: liveSessionId, message: comment)
             
-            UIUtils.showHUD(view: viewController?.currentView)
+            //UIUtils.showHUD(view: viewController?.currentView)
             LiveScreenService().sendMessage(param: param) { [weak self] result, error in
                 guard let self = self else { return }
-                UIUtils.hideHUD(view: self.viewController?.currentView)
+                //UIUtils.hideHUD(view: self.viewController?.currentView)
                 if let result = result{
                     print("Message Sent successfully", result)
                     self.sendMessageThroughSocket(request: param)
