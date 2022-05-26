@@ -19,8 +19,23 @@ import UIKit
         self.navigationItem.title = "Home"
         print("Is Connected",NetworkManager.isConnectedToInternet)
          configureVM()
+         //fontFamilyName()
     }
     
+     // MARK: - Just to test Font Family
+     // TODO: - Delete this function
+     func fontFamilyName(){
+         for family: String in UIFont.familyNames
+                 {
+                     print(family)
+                     for names: String in UIFont.fontNames(forFamilyName: family)
+                     {
+                         print("== \(names)")
+                     }
+                 }
+     }
+     
+     //
      func configureVM(){
          self.viewModel = ListViewModel()
          viewModel?.viewController = self
