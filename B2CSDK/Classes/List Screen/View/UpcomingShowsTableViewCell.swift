@@ -54,11 +54,6 @@ extension UpcomingShowsTableViewCell: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellID.UpcomingShowCellID, for: indexPath) as! UpcomingShowCollectionViewCell
         cell.configureUI()
-        if indexPath.row % 2 == 0 {
-            cell.labelShowName.text = "Tech for all"
-        }else {
-            cell.labelShowName.text = "Comedy show with"
-        }
         cell.configureCell(data: cellDataArray[indexPath.row])
         return cell
     }

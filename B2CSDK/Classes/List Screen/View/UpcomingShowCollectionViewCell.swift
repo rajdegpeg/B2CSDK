@@ -28,6 +28,7 @@ class UpcomingShowCollectionViewCell: UICollectionViewCell {
         statusView.customRoundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 5)
         countView.customRoundCorners(corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner], radius: 5)
         statusLabel.layer.cornerRadius = 5
+        
     }
     
     func configureCell(data: RowData) {

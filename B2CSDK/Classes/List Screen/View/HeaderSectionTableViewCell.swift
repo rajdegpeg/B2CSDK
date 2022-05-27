@@ -61,7 +61,12 @@ extension HeaderSectionTableViewCell: UICollectionViewDelegate, UICollectionView
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.redirectToLiveScreen(data: cellDataArray[indexPath.row])
+        let video = cellDataArray[indexPath.row]
+        if video.status == .scheduled || video.status == .planned {
+            
+        }else {
+            delegate?.redirectToLiveScreen(data: cellDataArray[indexPath.row])
+        }
     }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageControl.progress = Double(scrollView.contentOffset.x) / Double(scrollView.frame.width)

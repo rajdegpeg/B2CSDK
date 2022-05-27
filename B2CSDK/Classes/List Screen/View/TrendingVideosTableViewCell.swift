@@ -44,7 +44,7 @@ extension TrendingVideosTableViewCell: UICollectionViewDelegate, UICollectionVie
         
         let height = collectionView.frame.size.height
         let width = (height/5)*4
-        return CGSize(width: width, height: height)
+        return CGSize(width: width+20, height: height)
         
     }
     
@@ -59,7 +59,10 @@ extension TrendingVideosTableViewCell: UICollectionViewDelegate, UICollectionVie
         return cell
     }
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.redirectToLiveScreen(data: cellDataArray[indexPath.row])
+        let video = cellDataArray[indexPath.row]
+        if video.status != .scheduled || video.status != .planned {
+            delegate?.redirectToLiveScreen(data: cellDataArray[indexPath.row])
+        }
     }
     
 }

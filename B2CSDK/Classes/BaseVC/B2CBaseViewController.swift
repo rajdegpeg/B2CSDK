@@ -44,5 +44,14 @@ class B2CBaseViewController: UIViewController {
         
             present(alert, animated: true, completion: nil)
     }
+    
+    //MARK: - Share Popup
+    func showSharePopoup(shareObject: [Any]) {
+        
+        let activityVC = UIActivityViewController(activityItems: shareObject, applicationActivities: nil)
+        
+        
+        self.present(activityVC, animated: true, completion: nil)
+    }
 
 }

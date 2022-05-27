@@ -14,8 +14,6 @@ extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        //let date = dateFormatter.date(from: "2017-01-09T11:00:00.000Z")
-       
         let date = dateFormatter.date(from: self)
         print("date: \(date)")
         return date

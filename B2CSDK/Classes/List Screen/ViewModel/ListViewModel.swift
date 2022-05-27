@@ -109,11 +109,9 @@ final class ListViewModel: ListViewModelProtocol {
                     guard let self = self else { return }
                     if let channel = channel {
                         if channel.isWebToStream {
-                            var videoUrl = ""
-                            if video.videoUrl == nil {
+                            var videoUrl = video.videoUrl ?? ""
+                            if videoUrl.count < 3 {
                                 videoUrl = video.webVideoUrl ?? ""
-                            }else {
-                                videoUrl = video.videoUrl ?? ""
                             }
                             
                             let oneRecord = RowData.init(id: video.id, products: video.products, sessionDate: video.dateTime?.stringToDate() ?? Date(), videoUrl: videoUrl, status: video.status, imageUrl: video.bannerUrl, sessionDataId: video.sessionDataId, contentProviderId: video.contentProviderId, liveSessionCategory: video.liveSessionCategory, streamKey: video.streamKey, sessionType: video.sessionType, sessionPassCode: video.sessionPassCode, name: video.name, description: video.description, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil)

@@ -101,6 +101,18 @@ class LiveScreenViewController: B2CBaseViewController {
         btnSend.isUserInteractionEnabled = false
     }
     
+    @IBAction func shareAction()
+    {
+        let stringDate = screenData?.sessionDate.dateToString() ?? ""
+        let message = "Hey join this event:\(screenData?.name ?? "")\nOn \(stringDate)\n"
+        guard let urlStr = screenData?.videoUrl, let url = URL.init(string: urlStr) else {
+            showAlertView(title: AlertTitles.Error, message: "Video URL not found!")
+            return
+        }
+        let objectsToShare = [message, url] as [Any]
+        self.showSharePopoup(shareObject: objectsToShare)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -203,8 +215,10 @@ extension LiveScreenViewController {
     
     
     func playVideo() {
-      
+      //screenData?.videoUrl
+        //let videoString = "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
         guard let videoString = screenData?.videoUrl, let videoURL = URL.init(string: videoString) else { return }
+        
         player = AVPlayer.init(url: videoURL)
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspectFill
