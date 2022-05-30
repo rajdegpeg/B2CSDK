@@ -47,18 +47,18 @@ struct LiveScreenService {
             if isExpire {
                 completionHandler(nil, ServiceError.init(statusCode: 0, message: "Token exp"))
             } else {
-                if let error = error {
+                if (200 ... 299).contains(code) {
+                    if let result = result {
+                        let details = Mapper<ChatMessage>().mapArray(JSONArray: result as! [[String : Any]])
+                        completionHandler(details, nil)
+                    }else {
+                        completionHandler(nil, error)
+                    }
+                }else  if let error = error {
                     completionHandler(nil, error)
-                }else if let result = result {
-                    let details = Mapper<ChatMessage>().mapArray(JSONArray: result as! [[String : Any]])
-                    completionHandler(details, nil)
                 }
             }
         }
-    }
-    
-    func sendMessage12(param: [String: Any], completionHandler: @escaping ([ChatMessage]?, ServiceError?) -> Void) {
-        
     }
     
     
@@ -112,6 +112,43 @@ struct LiveScreenService {
     func getProductFilter(id: String) -> [String: Any]{
         
         return ["where": ["id": id]]
+    }
+    
+    func postLikeService(param: [String: Any], completionHandler: @escaping (Any?, ServiceError?) -> Void) {
+        let endPoint = "\(APIConstants.LikeVideo)"
+        APIClient.getInstance().requestJson(endPoint, .post, parameters: param) { result, error, refresh, code in
+            if code == ResponseCode.success {
+                print("code: ", code)
+            }
+            if (200 ... 299).contains(code) {
+                if let result = result {
+                    completionHandler(result, nil)
+                } else {
+                    completionHandler(nil, error)
+                }
+            }else {
+                completionHandler(nil, error)
+            }
+        }
+    }
+    
+    
+    func postViewCountService(param: [String: Any], completionHandler: @escaping (Any?, ServiceError?) -> Void) {
+        let endPoint = "\(APIConstants.ViewCount)"
+        APIClient.getInstance().requestJson(endPoint, .patch, parameters: param) { result, error, refresh, code in
+            if code == ResponseCode.success {
+                print("code: ", code)
+            }
+            if (200 ... 299).contains(code) {
+                if let result = result {
+                    completionHandler(result, nil)
+                } else {
+                    completionHandler(nil, error)
+                }
+            }else {
+                completionHandler(nil, error)
+            }
+        }
     }
     
 }

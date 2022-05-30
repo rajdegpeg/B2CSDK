@@ -23,6 +23,7 @@ protocol LiveScreenViewControllerProtocol: AnyObject {
     func updateViewCount(viewCount: ViewCountModel)
     func updateProduct(product: Product)
     func showError(errorString: String)
+    func animateLikeView()
     
 }
 
@@ -34,6 +35,8 @@ protocol LiveScreenViewModelProtocol: AnyObject {
     func sendMessage(for liveSessionId: String, comment: String)
     //func getSessionDetails(liveSessionId: String)
     func fetchAllProducts(products: [String])
+    func likeVideoAPI(for liveSessionID: String)
+    func updateViewAPI(for liveSessionID: String)
     // MARK: - Socket
     func joinRoom(sessionId: String)
     func leaveRoom(sessionId: String)

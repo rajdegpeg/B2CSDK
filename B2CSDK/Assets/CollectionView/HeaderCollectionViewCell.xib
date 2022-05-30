@@ -61,13 +61,34 @@
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="GUE-Q6-DyN">
                         <rect key="frame" x="24" y="193" width="286" height="36"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnS-k6-oLs">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AbL-fV-8RY">
                                 <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.52549019610000003" blue="0.8980392157" alpha="0.65357265340000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQi-XH-hU2">
+                                        <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                        <color key="backgroundColor" red="0.30196078430000001" green="1" blue="0.41176470590000003" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnS-k6-oLs">
+                                        <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                        <color key="backgroundColor" red="0.30196078431372547" green="1" blue="0.41176470588235292" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="PnS-k6-oLs" secondAttribute="height" multiplier="1:1" id="FdD-7t-dcs"/>
+                                    <constraint firstItem="PnS-k6-oLs" firstAttribute="leading" secondItem="AbL-fV-8RY" secondAttribute="leading" id="1Fi-Sa-4tk"/>
+                                    <constraint firstAttribute="bottom" secondItem="pQi-XH-hU2" secondAttribute="bottom" id="6Zt-Et-B0X"/>
+                                    <constraint firstAttribute="trailing" secondItem="PnS-k6-oLs" secondAttribute="trailing" id="ACP-SN-D1g"/>
+                                    <constraint firstItem="PnS-k6-oLs" firstAttribute="top" secondItem="AbL-fV-8RY" secondAttribute="top" id="JGY-E6-1Hi"/>
+                                    <constraint firstAttribute="trailing" secondItem="pQi-XH-hU2" secondAttribute="trailing" id="N41-fm-Lgr"/>
+                                    <constraint firstItem="pQi-XH-hU2" firstAttribute="top" secondItem="AbL-fV-8RY" secondAttribute="top" id="wL8-fv-pHh"/>
+                                    <constraint firstItem="pQi-XH-hU2" firstAttribute="leading" secondItem="AbL-fV-8RY" secondAttribute="leading" id="xGh-RW-liK"/>
+                                    <constraint firstAttribute="bottom" secondItem="PnS-k6-oLs" secondAttribute="bottom" id="ysg-CW-fMR"/>
+                                    <constraint firstAttribute="width" secondItem="AbL-fV-8RY" secondAttribute="height" multiplier="1:1" id="zc8-in-WOd"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wu-BQ-Fg6">
                                 <rect key="frame" x="45" y="0.0" width="241" height="36"/>
                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
@@ -107,6 +128,7 @@
             <connections>
                 <outlet property="brandName" destination="4wu-BQ-Fg6" id="iqE-yR-8p9"/>
                 <outlet property="descriptionLabel" destination="UBQ-IW-4uF" id="nlC-KM-n26"/>
+                <outlet property="nameImageLabel" destination="pQi-XH-hU2" id="AaO-cZ-GRB"/>
                 <outlet property="statusLabel" destination="kHj-rf-V1t" id="Q2V-1R-67X"/>
                 <outlet property="titleLabel" destination="vKV-a5-kuN" id="0nQ-ZG-Lvv"/>
                 <outlet property="userImage" destination="PnS-k6-oLs" id="QvV-wF-Uks"/>

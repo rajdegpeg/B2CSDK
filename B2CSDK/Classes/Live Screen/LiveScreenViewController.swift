@@ -12,6 +12,7 @@ import GrowingTextView
 class LiveScreenViewController: B2CBaseViewController {
     var viewModel: LiveScreenViewModelProtocol?
     var currentView: UIView?
+    @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var videoView: UIView!
     
@@ -24,6 +25,8 @@ class LiveScreenViewController: B2CBaseViewController {
     
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var commentView: UIView!
+    
+    @IBOutlet weak var likeAnimationView: EmojiAnimationView!
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
@@ -66,6 +69,7 @@ class LiveScreenViewController: B2CBaseViewController {
             viewModel?.getMessages(for: sessionId)
             //viewModel?.getSessionDetails(liveSessionId: sessionId)
             viewModel?.getViewCount(for: sessionId)
+            //viewModel?.updateViewAPI(for: sessionId)
         }
         if let products = screenData?.products {
             viewModel?.fetchAllProducts(products: products)
@@ -87,7 +91,7 @@ class LiveScreenViewController: B2CBaseViewController {
     }
     
     @IBAction func closeButtonAction(_ sender: UIButton) {
-        player?.seek(to: CMTimeMakeWithSeconds(Float64(0), 1) )
+        player?.seek(to: .zero)
         player?.pause()
         removeObserver()
         viewModel?.leaveRoom(sessionId: screenData?.id ?? "")
@@ -113,12 +117,24 @@ class LiveScreenViewController: B2CBaseViewController {
         self.showSharePopoup(shareObject: objectsToShare)
     }
     
+    @IBAction func likeAction(_ sender: UIButton)
+    {
+        if let sessionId = screenData?.id {
+            viewModel?.likeVideoAPI(for: sessionId)
+        }
+    }
+    
+    @IBAction func bagAction(_ sender: UIButton)
+    {
+        closeButtonAction(sender)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        playVideo()
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveForegroundNotification), name: UIApplication.willEnterForegroundNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveBackgroundNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveBackgroundNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
     }
     
@@ -154,7 +170,6 @@ extension LiveScreenViewController {
         configureUI()
         setUpSocketIO()
         hideNavigationBar()
-        playVideo()
         addObserver()
         
     }
@@ -209,7 +224,7 @@ extension LiveScreenViewController {
                                                object: nil)
     }
     @objc func resetPlayer() {
-        player?.seek(to: CMTimeMakeWithSeconds(Float64(0), 1) )
+        player?.seek(to: .zero)
         player?.play()
     }
     
@@ -217,11 +232,13 @@ extension LiveScreenViewController {
     func playVideo() {
       //screenData?.videoUrl
         //let videoString = "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
-        guard let videoString = screenData?.videoUrl, let videoURL = URL.init(string: videoString) else { return }
+        //let videoString = "https://d3t9ogvkwmi4es.cloudfront.net/live/l3sdmv/index.m3u8"
         
+        guard let videoString = screenData?.videoUrl, let videoURL = URL.init(string: videoString) else { return }
+        //let videoURL = URL.init(fileURLWithPath: videoString)
         player = AVPlayer.init(url: videoURL)
         let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.videoGravity = .resizeAspect
         playerLayer.frame = videoView.bounds
         videoView.layer.addSublayer(playerLayer)
         player?.play()

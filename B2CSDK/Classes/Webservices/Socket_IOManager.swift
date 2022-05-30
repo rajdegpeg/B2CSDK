@@ -109,7 +109,7 @@ class Socket_IOManager {
             }
         }
         
-        socket.on(Events.liveEmoji.listnerName) { [weak self] data, ack in
+        socket.on(Events.likeEmoji.listnerName) { [weak self] data, ack in
             guard let self = self else { return }
             Logs.print("Live emoji received")
             Logs.print(data)
@@ -136,7 +136,7 @@ class Socket_IOManager {
         if let socket = socket, socket.status == .connected {
             Logs.print("Emit: \(emitName)\nParams: \(params)")
             socket.emit(emitName, params) {
-                Logs.print("joined room Emit")
+                Logs.print("Message Emit")
             }
         }
     }
@@ -154,7 +154,7 @@ class Socket_IOManager {
     enum Events {
         
         case chatMessage
-        case liveEmoji
+        case likeEmoji
         case viewCount
         case joinRoom
         case leaveRoom
@@ -163,7 +163,7 @@ class Socket_IOManager {
             switch self {
             case .chatMessage:
                 return "chat_message"
-            case .liveEmoji:
+            case .likeEmoji:
                 return "update_like"
             case .viewCount:
                 return "update_view"
@@ -179,7 +179,7 @@ class Socket_IOManager {
             switch self {
             case .chatMessage:
                 return "chat_message"
-            case .liveEmoji:
+            case .likeEmoji:
                 return "update_like"
             case .viewCount:
                 return "update_view"

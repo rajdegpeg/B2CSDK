@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 import ObjectMapper
+import Alamofire
 final class LiveScreenViewModel: LiveScreenViewModelProtocol {
+    
     var viewController: LiveScreenViewControllerProtocol?
     
     func getUserData(for providerId: String) {
@@ -25,14 +27,12 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
                     print("User", user[0])
                     self.viewController?.updateUserData(user: user[0])
                 } else {
-                    //UIUtils.showDefaultAlertView(title: AlertTitles.Error, message: error?.message ?? "Something went wrong")
                     self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
                 }
             }
         }else {
             self.viewController?.showError(errorString: AlertDetails.NoInternet)
         }
-
     }
     
     // MARK: - Session Details
@@ -54,10 +54,8 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
         }else {
             self.viewController?.showError(errorString: AlertDetails.NoInternet)
         }
-
     }
    
-    
     // MARK: - Get All Messages
     func getMessages(for liveSessionId: String) {
         if NetworkManager.isConnectedToInternet {
@@ -116,19 +114,10 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
     }
     
     func createSendMessageRequest(sessionId: String, message: String) -> [String: Any]{
-        /*
-         data: {
-                     “time_stamp”: “current Time”,
-                     “username”: “username who login”,
-                     “userId” “”user Id,
-                     “message”: “hai”,
-                     “liveSessionId”: “session-id”
-                       }
-         */
         //"username": B2CUserDefaults.getUserName(),
         let date = Date.init()
         let currentTime = date.serverRequestDateString()
-        let req = ["time_stamp": currentTime, "userId": B2CUserDefaults.getUserId(), "message": message, "liveSessionId": sessionId]
+        let req = ["time_stamp": currentTime, "userId": B2CUserDefaults.getUserName(), "message": message, "liveSessionId": sessionId]
         return req as [String : Any] //["data": req]
     }
     
@@ -156,6 +145,7 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
 
     }
     
+    // MARK: - Get All Products
     func fetchAllProducts(products: [String]) {
         if NetworkManager.isConnectedToInternet {
             products.forEach { product in
@@ -170,18 +160,68 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
             self.viewController?.showError(errorString: AlertDetails.NoInternet)
         }
     }
+
+    // MARK: - Post Like
+    func likeVideoAPI(for liveSessionID: String) {
+        if NetworkManager.isConnectedToInternet {
+            let param = createLikeRequest(sessionId: liveSessionID)
+            LiveScreenService().postLikeService(param: param) { [weak self] result, error in
+                guard let self = self else { return }
+                if let result = result{
+                    print("Video Like successfully", result)
+                    self.viewController?.animateLikeView()
+                    self.sendMessageThroughSocket(name: Socket_IOManager.Events.likeEmoji.emitterName,request: param)
+                } else {
+                    self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
+                }
+            }
+        }else {
+            self.viewController?.showError(errorString: AlertDetails.NoInternet)
+        }
+    }
+    
+    func createLikeRequest(sessionId: String) -> [String: Any]{
+        let date = Date.init()
+        let currentTime = date.serverRequestDateString()
+        let req = ["time_stamp": currentTime, "userId": B2CUserDefaults.getUserName(), "source": "web", "liveSessionId": sessionId]
+        return req as [String : Any]
+    }
     
     
+    // MARK: - Post View Count
+    func updateViewAPI(for liveSessionID: String) {
+        if NetworkManager.isConnectedToInternet {
+            let param = createViewCountRequest(sessionId: liveSessionID)
+            LiveScreenService().postViewCountService(param: param) { [weak self] result, error in
+                guard let self = self else { return }
+                if let result = result{
+                    print("Video View Count updated successfully", result)
+                   // self.viewController?.animateLikeView()
+                    self.sendMessageThroughSocket(name: Socket_IOManager.Events.viewCount.emitterName,request: param)
+                } else {
+                    self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
+                }
+            }
+        }else {
+            self.viewController?.showError(errorString: AlertDetails.NoInternet)
+        }
+    }
+    
+    func createViewCountRequest(sessionId: String) -> [String: Any]{
+        let date = Date.init()
+        let currentTime = date.serverRequestDateString()
+        let req = ["time_stamp": currentTime, "userId": B2CUserDefaults.getUserName(), "source": "web", "liveSessionId": sessionId]
+        return req as [String : Any]
+    }
     
 }
-
 
 // MARK: - Socket
 
 extension LiveScreenViewModel {
     
-    func sendMessageThroughSocket(request: [String: Any]) {
-        Socket_IOManager.shared.socketEmit(emitName: Socket_IOManager.Events.chatMessage.emitterName, params: request)
+    func sendMessageThroughSocket(name: String = Socket_IOManager.Events.chatMessage.emitterName, request: [String: Any]) {
+        Socket_IOManager.shared.socketEmit(emitName: name, params: request)
     }
     func joinRoom(sessionId: String) {
         Socket_IOManager.shared.socketEmit(emitName: Socket_IOManager.Events.joinRoom.emitterName, params: ["room": sessionId])

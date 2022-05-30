@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
         <array key="Nunito-Regular.ttf">
             <string>Nunito-Regular</string>
         </array>
@@ -22,9 +25,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gF-Yk-5TQ">
+                        <rect key="frame" x="20" y="8" width="28" height="28"/>
+                        <color key="backgroundColor" red="0.30196078430000001" green="1" blue="0.41176470590000003" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="18"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SeM-9f-6FI">
                         <rect key="frame" x="20" y="8" width="28" height="28"/>
-                        <color key="backgroundColor" red="0.047058823530000002" green="0.47843137250000001" blue="0.78039215689999997" alpha="0.69971830999999995" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.30196078430000001" green="1" blue="0.41176470590000003" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="Xic-LT-7zl"/>
                             <constraint firstAttribute="width" constant="28" id="bMf-2c-zoP"/>
@@ -40,18 +55,23 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="C5H-b3-Jcf" firstAttribute="leading" secondItem="SeM-9f-6FI" secondAttribute="trailing" constant="12" id="4aI-Dy-hyk"/>
+                    <constraint firstItem="8gF-Yk-5TQ" firstAttribute="top" secondItem="SeM-9f-6FI" secondAttribute="top" id="7bB-08-kBX"/>
                     <constraint firstItem="C5H-b3-Jcf" firstAttribute="top" secondItem="SeM-9f-6FI" secondAttribute="top" id="F6X-wB-zxh"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="C5H-b3-Jcf" secondAttribute="trailing" constant="50" id="FDz-CS-1oJ"/>
                     <constraint firstAttribute="bottom" secondItem="C5H-b3-Jcf" secondAttribute="bottom" constant="6" id="IZg-Zr-Rzg"/>
                     <constraint firstItem="SeM-9f-6FI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="NFB-Qn-2Cm"/>
+                    <constraint firstItem="8gF-Yk-5TQ" firstAttribute="bottom" secondItem="SeM-9f-6FI" secondAttribute="bottom" id="RWN-af-go4"/>
+                    <constraint firstItem="8gF-Yk-5TQ" firstAttribute="trailing" secondItem="SeM-9f-6FI" secondAttribute="trailing" id="RYN-jf-ZLu"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SeM-9f-6FI" secondAttribute="bottom" constant="8" id="cUR-wU-nv1"/>
                     <constraint firstItem="SeM-9f-6FI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="nHV-op-QLC"/>
+                    <constraint firstItem="8gF-Yk-5TQ" firstAttribute="leading" secondItem="SeM-9f-6FI" secondAttribute="leading" id="uBA-sc-lEG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="messageLabel" destination="C5H-b3-Jcf" id="5pN-fR-8VF"/>
+                <outlet property="nameLabel" destination="8gF-Yk-5TQ" id="qWz-Ps-AEm"/>
                 <outlet property="profileImage" destination="SeM-9f-6FI" id="fbw-vB-26Y"/>
             </connections>
             <point key="canvasLocation" x="304" y="49"/>

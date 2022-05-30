@@ -75,5 +75,7 @@ struct APIConstants {
     static let Product = "products"
     static let UserDetail = "users"
     static let ViewCount = "views/count"
+    static let UpdateViewCount = "views"
     static let LiveSessionComments = "chat-messages"
+    static let LikeVideo = "likes"
 }

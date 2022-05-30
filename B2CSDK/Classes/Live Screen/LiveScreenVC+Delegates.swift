@@ -10,6 +10,14 @@ import Kingfisher
 // MARK: - LiveScreenViewControllerProtocol
 extension LiveScreenViewController: LiveScreenViewControllerProtocol {
     
+    func animateLikeView(){
+        if let emoji = "❤".emojiToImage() {
+            likeAnimationView.animate(icon: emoji)
+            likeAnimationView.animate(icon: emoji)
+            likeAnimationView.animate(icon: emoji)
+        }
+    }
+    
     func appendNewMessage(message: ChatMessage) {
         btnSend.isUserInteractionEnabled = true
         DispatchQueue.main.async { [weak self] in
@@ -23,32 +31,39 @@ extension LiveScreenViewController: LiveScreenViewControllerProtocol {
         } else {
             productList = [product]
         }
-
         collectionView.reloadData()
     }
-    
-    
+        
     func updateViewCount(viewCount: ViewCountModel)
     {
         if let count = viewCount.count {
-            self.labelViewCount.text = "\(count.formatUsingAbbrevation())  "
+            self.labelViewCount.text = " \(count.formatUsingAbbrevation())  "
         }
-        
     }
+    
     func updateCommentsArray(comments: [ChatMessage]) {
         messageArray = comments
         messageTableView.reloadData()
         self.scrollToBottomCell()
     }
     
-   
     func updateUserData(user: UserDetails) {
+        if let username = user.firstName {
+            name.text = username
+        }else if let username = user.fullName {
+            name.text = username
+        }else if let email = user.email {
+            name.text = email.emailToName()
+        }
         
-        name.text = user.firstName
         if let imageStr = user.displayPicture {
+            nameLabel.isHidden = true
+            profileImage.isHidden = false
             setProfileImage(imageString: imageStr)
         }else{
-            profileImage.image = UIImage(named: ImageConstants.placeholderImage)
+            nameLabel.isHidden = false
+            profileImage.isHidden = true
+            nameLabel.text = name.text?.nameToInitials()
         }
     }
     
@@ -82,6 +97,7 @@ extension LiveScreenViewController: LiveScreenViewControllerProtocol {
     }
     
 }
+
 
 // MARK: - Live screen Action delegates
 extension LiveScreenViewController: LiveScreenActionProtocols {
@@ -130,9 +146,9 @@ extension LiveScreenViewController: SocketDelegate {
     /// Socket method to update like count
     /// - Parameter like: ViewCount
     func updateLike(like: ViewCountModel) {
-//        if let emoji = "❤".emojiToImage() {
-//            emojiAnimationView.animate(icon: emoji)
-//        }
+        if let emoji = "❤".emojiToImage() {
+            likeAnimationView.animate(icon: emoji)
+        }
     }
     
     /// Socket Method to update view count

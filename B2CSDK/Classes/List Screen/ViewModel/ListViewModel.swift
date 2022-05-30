@@ -109,11 +109,7 @@ final class ListViewModel: ListViewModelProtocol {
                     guard let self = self else { return }
                     if let channel = channel {
                         if channel.isWebToStream {
-                            var videoUrl = video.videoUrl ?? ""
-                            if videoUrl.count < 3 {
-                                videoUrl = video.webVideoUrl ?? ""
-                            }
-                            
+                            let videoUrl = video.webVideoUrl ?? ""
                             let oneRecord = RowData.init(id: video.id, products: video.products, sessionDate: video.dateTime?.stringToDate() ?? Date(), videoUrl: videoUrl, status: video.status, imageUrl: video.bannerUrl, sessionDataId: video.sessionDataId, contentProviderId: video.contentProviderId, liveSessionCategory: video.liveSessionCategory, streamKey: video.streamKey, sessionType: video.sessionType, sessionPassCode: video.sessionPassCode, name: video.name, description: video.description, userName: nil, userImage: nil, userID: nil, userContentProviderId: nil)
                             rowData.append(oneRecord)
                             
@@ -131,9 +127,9 @@ final class ListViewModel: ListViewModelProtocol {
             }
         }
         
-        myGroup.notify(queue: DispatchQueue.main) {
+        myGroup.notify(queue: DispatchQueue.main) {  [weak self] in
             
-            
+            guard let self = self else {return}
             let liveDataArray = rowData.filter({$0.status == .live}).sorted(by: {$0.sessionDate > $1.sessionDate})
             let plannedSessions = rowData.filter({$0.status == .planned}).sorted(by: {$0.sessionDate > $1.sessionDate})
             let scheduledSessions = rowData.filter({$0.status == .scheduled}).sorted(by: {$0.sessionDate > $1.sessionDate})
@@ -184,10 +180,67 @@ final class ListViewModel: ListViewModelProtocol {
             
             let brandData = ListSectionData.init(sectionName: .brand, sectionData: nil)
             homeDataArray.append(brandData)
-            self.viewController?.updateSectionData(dataArray: homeDataArray)
+            
+            self.addUserDetails(in: homeDataArray)
             //[liveData, trendindData, categoriesData, upcomingData, brandData]
             }
         
+    }
+    
+    func addUserDetails(in homeData:[ListSectionData]) {
+        let myGroup: DispatchGroup = DispatchGroup()
+        
+        if let bannerData = homeData.first(where: {$0.sectionName == .live}), var array = bannerData.sectionData {
+            
+            var userDataArry: [UserDetails] = [UserDetails]()
+            for oneRecord in array {
+                myGroup.enter()
+                
+                var filter = UserFilter.init()
+                let param = filter.createUserFilter(id: oneRecord.contentProviderId ?? "")
+                HomeService().getUserDetails(param: param) { [weak self] user, error in
+                    myGroup.leave()
+                    guard let self = self else { return }
+                    if let user = user, user.count > 0 {
+                        print("User", user[0].email)
+                        print("User", user[0])
+                        userDataArry.append(user[0])
+                    } else {
+                       
+                    }
+                }
+            }
+            
+            myGroup.notify(queue: DispatchQueue.main) {  [weak self] in
+                guard let self = self else {return}
+                for i in 0..<array.count {
+                    var record  = array[i]
+                    var name = ""
+                    let user = userDataArry[i]
+                    if let username = user.firstName {
+                        name = username
+                    }else if let username = user.fullName {
+                        name = username
+                    }else if let email = user.email {
+                        name = email.emailToName()
+                    }
+                    record.userName = name
+                    record.userID = user.id
+                    record.userContentProviderId = user.contentProviderId
+                    record.userImage = user.displayPicture
+                    
+                    array[i] = record
+                }
+                let liveData = ListSectionData.init(sectionName: .live, sectionData: array)
+                var data = homeData
+                let index = homeData.firstIndex(where: {$0.sectionName == .live}) ?? 0
+                data[index] = liveData
+                self.viewController?.updateSectionData(dataArray: data)
+            }
+        }else {
+        
+            self.viewController?.updateSectionData(dataArray: homeData)
+        }
     }
     
     

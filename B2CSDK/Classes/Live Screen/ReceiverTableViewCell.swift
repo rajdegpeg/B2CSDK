@@ -10,6 +10,7 @@ import UIKit
 class ReceiverTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +20,10 @@ class ReceiverTableViewCell: UITableViewCell {
         profileImage.layer.cornerRadius = profileImage.frame.size.height/2
         profileImage.layer.borderWidth = 1
         profileImage.layer.borderColor = UIColor.receiverProfileBorder.cgColor
+        
+        nameLabel.layer.cornerRadius = profileImage.frame.size.height/2
+        nameLabel.layer.borderWidth = 1
+        nameLabel.layer.borderColor = UIColor.receiverProfileBorder.cgColor
     }
     
     func setupCellData(message: ChatMessage) {
