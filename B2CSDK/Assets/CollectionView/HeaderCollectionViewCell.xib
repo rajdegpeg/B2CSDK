@@ -34,7 +34,21 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEF-4K-CpH">
                         <rect key="frame" x="0.0" y="0.0" width="334" height="311"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play_icon" translatesAutoresizingMaskIntoConstraints="NO" id="mbz-c4-w8n">
+                                <rect key="frame" x="143" y="131.5" width="48" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="EjU-jR-No8"/>
+                                    <constraint firstAttribute="height" constant="48" id="LJM-uc-rGG"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.16448974609375" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mbz-c4-w8n" firstAttribute="centerX" secondItem="fEF-4K-CpH" secondAttribute="centerX" id="QbN-Ta-mVm"/>
+                            <constraint firstItem="mbz-c4-w8n" firstAttribute="centerY" secondItem="fEF-4K-CpH" secondAttribute="centerY" id="z9W-jo-Jh3"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Live  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="kHj-rf-V1t">
                         <rect key="frame" x="24" y="34" width="41" height="24"/>
@@ -129,6 +143,7 @@
                 <outlet property="brandName" destination="4wu-BQ-Fg6" id="iqE-yR-8p9"/>
                 <outlet property="descriptionLabel" destination="UBQ-IW-4uF" id="nlC-KM-n26"/>
                 <outlet property="nameImageLabel" destination="pQi-XH-hU2" id="AaO-cZ-GRB"/>
+                <outlet property="playImage" destination="mbz-c4-w8n" id="igu-GH-vo3"/>
                 <outlet property="statusLabel" destination="kHj-rf-V1t" id="Q2V-1R-67X"/>
                 <outlet property="titleLabel" destination="vKV-a5-kuN" id="0nQ-ZG-Lvv"/>
                 <outlet property="userImage" destination="PnS-k6-oLs" id="QvV-wF-Uks"/>
@@ -139,5 +154,6 @@
     </objects>
     <resources>
         <image name="dummy2.png" width="390" height="401"/>
+        <image name="play_icon" width="48" height="48"/>
     </resources>
 </document>

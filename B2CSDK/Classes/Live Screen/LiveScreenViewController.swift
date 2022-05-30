@@ -191,15 +191,16 @@ extension LiveScreenViewController {
         messageInputTextView.delegate = self
         //messageInputTextView.maxLength = 440
         messageInputTextView.trimWhiteSpaceWhenEndEditing = false
-        messageInputTextView.placeholder = "Post a comment"
+        messageInputTextView.placeholder = "Post a Comment"
         messageInputTextView.placeholderColor = UIColor(white: 10.8, alpha: 1.0)
-        messageInputTextView.minHeight = 40.0
-        messageInputTextView.maxHeight = 200.0
+        messageInputTextView.minHeight = 34.0
+        messageInputTextView.maxHeight = 160.0
         messageInputTextView.backgroundColor = UIColor.clear
         messageInputTextView.layer.cornerRadius = 10.0
        messageInputTextView.layer.borderWidth = 1
        messageInputTextView.layer.borderColor = UIColor.white.cgColor
        messageInputTextView.textColor = .white
+       messageInputTextView.font = B2CFonts.semiBoldFont(size: 16)
     }
     
     func configureUI(){

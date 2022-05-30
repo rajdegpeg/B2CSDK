@@ -294,6 +294,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="132" id="RvM-Da-deR"/>
+                                            <constraint firstAttribute="height" constant="34" id="gd0-IU-rui"/>
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gn2-yk-pzr" customClass="GrowingTextView" customModule="GrowingTextView">
@@ -330,7 +331,6 @@
                                     <constraint firstAttribute="trailing" secondItem="Ccg-Cf-M8a" secondAttribute="trailing" constant="15" id="DmE-Xz-bex"/>
                                     <constraint firstItem="gn2-yk-pzr" firstAttribute="leading" secondItem="hwB-hI-jW2" secondAttribute="leading" constant="24" id="JyT-ge-aki"/>
                                     <constraint firstItem="X3q-O4-BDH" firstAttribute="bottom" secondItem="gn2-yk-pzr" secondAttribute="bottom" id="KyL-Ic-UzS"/>
-                                    <constraint firstItem="Ccg-Cf-M8a" firstAttribute="top" secondItem="hwB-hI-jW2" secondAttribute="top" constant="8" id="SWa-1W-epi"/>
                                     <constraint firstItem="gn2-yk-pzr" firstAttribute="top" secondItem="hwB-hI-jW2" secondAttribute="top" constant="8" id="Uwv-GR-3FT"/>
                                     <constraint firstAttribute="bottom" secondItem="gn2-yk-pzr" secondAttribute="bottom" constant="8" id="Xfy-wh-576"/>
                                     <constraint firstAttribute="height" constant="50" id="YU8-cF-k9d"/>

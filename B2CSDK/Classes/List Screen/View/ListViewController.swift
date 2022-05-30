@@ -19,7 +19,7 @@ import UIKit
         self.navigationItem.title = "Home"
         print("Is Connected",NetworkManager.isConnectedToInternet)
          configureVM()
-         //fontFamilyName()
+         fontFamilyName()
     }
     
      // MARK: - Just to test Font Family

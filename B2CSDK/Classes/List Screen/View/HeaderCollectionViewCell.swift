@@ -11,6 +11,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var videoImage: UIImageView!
     @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var playImage: UIImageView!
     @IBOutlet weak var brandName: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -33,6 +34,11 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     
     func configureCell(data: RowData) {
         
+        if data.status == .live || data.status == .completed{
+            playImage.isHidden = false
+        }else {
+            playImage.isHidden = true
+        }
         statusLabel.text = data.status?.status
         titleLabel.text = data.name
         descriptionLabel.text = data.description
