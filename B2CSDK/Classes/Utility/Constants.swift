@@ -43,7 +43,7 @@ struct ImageConstants {
 
 
 enum SessionStatusString: String {
-    case plan = "  Upcomming  "
+    case plan = "  Upcoming  "
     case completed = "  Completed  "
     case live = "  Live  "
     case scheduled = "  Scheduled  "

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productName: UILabel!
@@ -36,34 +35,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
         productName.text = data.name
         productPrice.text = "  \(data.currency ?? "") \(data.price ?? "")  "
         if let imageStr = data.image_url {
-            setVideoImage(imageString: imageStr)
+            productImage.setKFImage(imageString: imageStr, cornerRadius: 5)
         }else{
             productImage.image = UIImage.getPlaceholderImage()
         }
     }
 
-    func setVideoImage(imageString: String) {
-        let url = URL(string: imageString)
-        let processor = DownsamplingImageProcessor(size: productImage.bounds.size)
-            |> RoundCornerImageProcessor(cornerRadius: 5)
-        productImage.kf.indicatorType = .activity
-        productImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: ImageConstants.placeholderImage),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
-        {
-            result in
-            switch result {
-            case .success(let value):
-                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
-            }
-        }
-    }
 }

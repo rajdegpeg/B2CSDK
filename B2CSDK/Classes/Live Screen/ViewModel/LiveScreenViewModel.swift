@@ -131,9 +131,11 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
             LiveScreenService().fetchViewCount(param: param) { [weak self] viewCount, error in
                 guard let self = self else { return }
                 UIUtils.hideHUD(view: self.viewController?.currentView)
-                if let count = viewCount{
+                if let vcount = viewCount, let count = vcount.count{
                     print("view Count", count)
-                    self.viewController?.updateViewCount(viewCount: count)
+                    let req = self.createViewCountObject(sessionId: liveSessionId, count: count)
+                   self.sendMessageThroughSocket(name: Socket_IOManager.Events.viewCount.emitterName,request: req)
+                    self.viewController?.updateViewCount(viewCount: vcount)
                 } else {
                     
                     self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
@@ -197,7 +199,8 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
                 if let result = result{
                     print("Video View Count updated successfully", result)
                    // self.viewController?.animateLikeView()
-                    self.sendMessageThroughSocket(name: Socket_IOManager.Events.viewCount.emitterName,request: param)
+                    self.getViewCount(for: liveSessionID)
+                    
                 } else {
                     self.viewController?.showError(errorString: error?.message ?? "Something went wrong")
                 }
@@ -207,10 +210,14 @@ final class LiveScreenViewModel: LiveScreenViewModelProtocol {
         }
     }
     
+    func createViewCountObject(sessionId: String, count: Int) -> [String: Any] {
+        return ["session_id": sessionId, "count": count] as [String: Any]
+    }
+    
     func createViewCountRequest(sessionId: String) -> [String: Any]{
         let date = Date.init()
         let currentTime = date.serverRequestDateString()
-        let req = ["time_stamp": currentTime, "userId": B2CUserDefaults.getUserName(), "source": "web", "liveSessionId": sessionId]
+        let req = ["start": currentTime, "end": currentTime, "source": "web", "liveSessionId": sessionId] //liveSessionId
         return req as [String : Any]
     }
     

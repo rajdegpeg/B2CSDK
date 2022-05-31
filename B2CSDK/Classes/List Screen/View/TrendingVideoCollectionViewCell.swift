@@ -29,8 +29,6 @@ class TrendingVideoCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(data: RowData) {
-        
-//        if let status = data.status, status.lowercased() == "live" {
         if let status = data.status, status == .live {
             labelStatus.text = status.status
             statusView.isHidden = false
@@ -39,49 +37,24 @@ class TrendingVideoCollectionViewCell: UICollectionViewCell {
             eyeImage.isHidden = false
             statusLabel.isHidden = true
         }else {
-            statusLabel.isHidden = true
+            statusLabel.isHidden = false
             statusView.isHidden = true
             countView.isHidden = true
             labelViewCount.isHidden = true
             eyeImage.isHidden = true
-        }
-        
-        if data.status == .completed {
-            statusLabel.isHidden = false
             statusLabel.text = data.status?.status
         }
         
+//        if data.status == .completed {
+//            statusLabel.isHidden = false
+//            statusLabel.text = data.status?.status
+//        }
+        
         if let imageStr = data.imageUrl {
-            setVideoImage(imageString: imageStr)
+            videoImage.setKFImage(imageString: imageStr, cornerRadius: 5)
         }else{
             videoImage.image = UIImage.getPlaceholderImage()
         }
     }
-    
-    
-    func setVideoImage(imageString: String) {
-        let url = URL(string: imageString)
-        let processor = DownsamplingImageProcessor(size: videoImage.bounds.size)
-            |> RoundCornerImageProcessor(cornerRadius: 5)
-        videoImage.kf.indicatorType = .activity
-        videoImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: ImageConstants.placeholderImage),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
-        {
-            result in
-            switch result {
-            case .success(let value):
-                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
-            }
-        }
-    }
-    
+   
 }

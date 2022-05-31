@@ -134,8 +134,8 @@ struct LiveScreenService {
     
     
     func postViewCountService(param: [String: Any], completionHandler: @escaping (Any?, ServiceError?) -> Void) {
-        let endPoint = "\(APIConstants.ViewCount)"
-        APIClient.getInstance().requestJson(endPoint, .patch, parameters: param) { result, error, refresh, code in
+        let endPoint = "\(APIConstants.UpdateViewCount)"
+        APIClient.getInstance().requestJson(endPoint, .post, parameters: param) { result, error, refresh, code in
             if code == ResponseCode.success {
                 print("code: ", code)
             }

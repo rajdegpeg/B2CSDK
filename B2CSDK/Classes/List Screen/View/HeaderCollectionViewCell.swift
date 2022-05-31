@@ -47,67 +47,16 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         if let profileImage = data.userImage {
             nameImageLabel.isHidden = true
             userImage.isHidden = false
-            setProfileImage(imageString: profileImage)
+            userImage.setKFImage(imageString: profileImage)
         }else {
             nameImageLabel.isHidden = false
             userImage.isHidden = true
             nameImageLabel.text = brandName.text?.nameToInitials()
         }
         if let imageStr = data.imageUrl {
-            setVideoImage(imageString: imageStr)
+            videoImage.setKFImage(imageString: imageStr)
         }else{
             videoImage.image = UIImage.getPlaceholderImage()
         }
     }
-    
-    func setProfileImage(imageString: String) {
-        let url = URL(string: imageString)
-        let processor = DownsamplingImageProcessor(size: userImage.bounds.size)
-            |> RoundCornerImageProcessor(cornerRadius: 0)
-        userImage.kf.indicatorType = .activity
-        userImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: ImageConstants.placeholderImage),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
-        {
-            result in
-            switch result {
-            case .success(let value):
-                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func setVideoImage(imageString: String) {
-        let url = URL(string: imageString)
-        let processor = DownsamplingImageProcessor(size: videoImage.bounds.size)
-            |> RoundCornerImageProcessor(cornerRadius: 0)
-        videoImage.kf.indicatorType = .activity
-        videoImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: ImageConstants.placeholderImage),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
-        {
-            result in
-            switch result {
-            case .success(let value):
-                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
-            }
-        }
-    }
-
 }

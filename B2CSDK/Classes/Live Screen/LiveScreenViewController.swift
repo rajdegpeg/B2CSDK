@@ -32,6 +32,7 @@ class LiveScreenViewController: B2CBaseViewController {
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var messageInputTextView: GrowingTextView!
+    @IBOutlet weak var inputTextContainerView: UIView!
     
     var PRODUCT_CELL_HEIGHT: CGFloat = 90
     var screenData: RowData?
@@ -69,7 +70,7 @@ class LiveScreenViewController: B2CBaseViewController {
             viewModel?.getMessages(for: sessionId)
             //viewModel?.getSessionDetails(liveSessionId: sessionId)
             viewModel?.getViewCount(for: sessionId)
-            //viewModel?.updateViewAPI(for: sessionId)
+            viewModel?.updateViewAPI(for: sessionId)
         }
         if let products = screenData?.products {
             viewModel?.fetchAllProducts(products: products)
@@ -189,18 +190,21 @@ extension LiveScreenViewController {
             self.automaticallyAdjustsScrollViewInsets = false
         }
         messageInputTextView.delegate = self
-        //messageInputTextView.maxLength = 440
         messageInputTextView.trimWhiteSpaceWhenEndEditing = false
         messageInputTextView.placeholder = "Post a Comment"
         messageInputTextView.placeholderColor = UIColor(white: 10.8, alpha: 1.0)
         messageInputTextView.minHeight = 34.0
         messageInputTextView.maxHeight = 160.0
         messageInputTextView.backgroundColor = UIColor.clear
-        messageInputTextView.layer.cornerRadius = 10.0
-       messageInputTextView.layer.borderWidth = 1
-       messageInputTextView.layer.borderColor = UIColor.white.cgColor
+        
        messageInputTextView.textColor = .white
        messageInputTextView.font = B2CFonts.semiBoldFont(size: 16)
+       
+       inputTextContainerView.layer.cornerRadius = 10.0
+       inputTextContainerView.layer.borderWidth = 1
+       inputTextContainerView.layer.borderColor = UIColor.white.cgColor
+       inputTextContainerView.backgroundColor = UIColor.clear
+       
     }
     
     func configureUI(){

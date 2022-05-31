@@ -180,9 +180,9 @@ class Socket_IOManager {
             case .chatMessage:
                 return "chat_message"
             case .likeEmoji:
-                return "update_like"
+                return "like_count_updated"
             case .viewCount:
-                return "update_view"
+                return "update_view_count"
             case .joinRoom:
                 return "join"
             case .leaveRoom:

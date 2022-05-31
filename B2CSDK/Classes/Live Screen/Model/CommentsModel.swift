@@ -8,20 +8,18 @@
 import Foundation
 import ObjectMapper
 
-struct ChatMessage1: Mappable {
+struct SocketViewCount: Mappable {
     
-    var message: String?
-    var time_stamp: String?
-    var userId: String?
+    var count: Int?
+    var session_id: String?
     
     init() {}
     
     init?(map: Map) { }
     
     mutating func mapping(map: Map) {
-        message <- map["message"]
-        time_stamp <- map["time_stamp"]
-        userId <- map["userId"]
+        count <- map["message"]
+        session_id <- map["session_id"]
     }
     
 }
