@@ -13,26 +13,51 @@ import UIKit
      var homeDataArray = [ListSectionData]()
     @IBOutlet weak var listTableView: UITableView!
     var cellBundle: Bundle?
+     
+     lazy fileprivate var refreshControl: UIRefreshControl = {
+         let refreshControl = UIRefreshControl()
+         refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+         refreshControl.tintColor = UIColor.darkGray
+         return refreshControl
+     }()
+     
      override func viewDidLoad() {
         super.viewDidLoad()
+         AddRefreshControl()
         registerCells()
         self.navigationItem.title = "Home"
         print("Is Connected",NetworkManager.isConnectedToInternet)
          configureVM()
-         fontFamilyName()
+         //fontFamilyName()
     }
     
      // MARK: - Just to test Font Family
      // TODO: - Delete this function
      func fontFamilyName(){
          for family: String in UIFont.familyNames
-                 {
-                     print(family)
-                     for names: String in UIFont.fontNames(forFamilyName: family)
-                     {
-                         print("== \(names)")
-                     }
-                 }
+         {
+             print(family)
+             for names: String in UIFont.fontNames(forFamilyName: family)
+             {
+                 print("== \(names)")
+             }
+         }
+     }
+     
+     // MARK: Add Refresh Control
+     private func AddRefreshControl(){
+         listTableView.refreshControl = refreshControl
+     }
+     
+     //MARK: refresh table data
+     @objc private func pullToRefresh() {
+         getScreenData(spinnerFlag: false)
+         
+     }
+     
+     private func getScreenData(spinnerFlag: Bool){
+         viewModel?.fetchAllCategories()
+         viewModel?.getContentPublishers(for: DEFAULT_ContentPublisherId, showSpinnerFlag: spinnerFlag)
      }
      
      //
@@ -48,8 +73,7 @@ import UIKit
      override func viewWillAppear(_ animated: Bool) {
          super.viewWillAppear(animated)
          hideNavigationBar()
-         viewModel?.fetchAllCategories()
-         viewModel?.getContentPublishers(for: DEFAULT_ContentPublisherId)
+         getScreenData(spinnerFlag: true)
      }
     private func registerCells(){
         cellBundle = Bundle.resourceBundle(for: Self.self)
@@ -144,12 +168,18 @@ extension ListViewController: ListViewControllerProtocol{
     
     func updateSectionData(dataArray: [ListSectionData]) {
         print(dataArray.count)
+        UIUtils.hideHUD(view: self.view)
         homeDataArray = [ListSectionData]()
         homeDataArray = dataArray
+        if self.refreshControl.isRefreshing {
+            self.refreshControl.endRefreshing()
+        }
         listTableView.reloadData()
     }
     
     func showError(errorString: String) {
+        
+        UIUtils.hideHUD(view: self.view)
         showAlertView(title: AlertTitles.Alert, message: errorString)
     }
     

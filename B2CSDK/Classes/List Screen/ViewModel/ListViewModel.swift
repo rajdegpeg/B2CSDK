@@ -30,13 +30,14 @@ final class ListViewModel: ListViewModelProtocol {
             self.viewController?.showError(errorString: AlertDetails.NoInternet)
         }
     }
-    func getContentPublishers(for publisherId: String) {
+    func getContentPublishers(for publisherId: String, showSpinnerFlag: Bool) {
     
         if NetworkManager.isConnectedToInternet {
-            UIUtils.showHUD(view: viewController?.currentView)
+            if showSpinnerFlag {
+                UIUtils.showHUD(view: viewController?.currentView)
+            }
             HomeService().getContentPublisherDetails(contentPublisherId: publisherId) { [weak self] publisher, error in
                 guard let self = self else { return }
-                UIUtils.hideHUD(view: self.viewController?.currentView)
                 if publisher != nil {
                     self.contentPublisher = publisher
                     self.getAllHomeData()
@@ -62,10 +63,12 @@ final class ListViewModel: ListViewModelProtocol {
     
     func getContentProviderVideos(for providers: [String], index: Int) {
         if NetworkManager.isConnectedToInternet {
-            UIUtils.showHUD(view: viewController?.currentView)
+//            if showSpinnerFlag {
+//                UIUtils.showHUD(view: viewController?.currentView)
+//            }
             HomeService().getContentProviderVideos(contentProviderId: providers[index]) { [weak self] result, error in
                 guard let self = self else { return }
-                UIUtils.hideHUD(view: self.viewController?.currentView)
+                //UIUtils.hideHUD(view: self.viewController?.currentView)
                 if let list = result {
                     if !list.isEmpty {
                         self.videos.append(contentsOf: list)
@@ -90,6 +93,8 @@ final class ListViewModel: ListViewModelProtocol {
     }
      
     func createHomeData() {
+        
+        
         let myGroup: DispatchGroup = DispatchGroup()
         
         listSectionData = [ListSectionData]()
@@ -126,7 +131,7 @@ final class ListViewModel: ListViewModelProtocol {
                 }*/
             }
         }
-        
+        //UIUtils.hideHUD(view: self.viewController?.currentView)
         myGroup.notify(queue: DispatchQueue.main) {  [weak self] in
             
             guard let self = self else {return}
